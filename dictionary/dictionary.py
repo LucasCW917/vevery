@@ -44,6 +44,19 @@ def init_db(conn: sqlite3.Connection):
         )
     """)
 
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS concepts (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            name        TEXT    NOT NULL UNIQUE COLLATE NOCASE,
+            cluster     TEXT    DEFAULT '',
+            opposites   TEXT    DEFAULT '',
+            category    TEXT    DEFAULT '',
+            expression  TEXT    DEFAULT '',
+            created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+
     # Seed known words
     seed = [
         ("I",    "zew", "zeww",                    "first-person singular pronoun"),
@@ -139,6 +152,127 @@ def list_redirects(conn: sqlite3.Connection):
     return conn.execute(
         "SELECT alias, english FROM redirects ORDER BY alias COLLATE NOCASE"
     ).fetchall()
+
+
+# ── Concepts ──────────────────────────────────────────────────────────────────
+
+def add_concept(conn, name, cluster="", opposites="", category="", expression=""):
+    try:
+        conn.execute(
+            "INSERT INTO concepts (name, cluster, opposites, category, expression) VALUES (?,?,?,?,?)",
+            (name, cluster, opposites, category, expression)
+        )
+        conn.commit()
+        return True, None
+    except sqlite3.IntegrityError as e:
+        return False, str(e)
+
+
+def update_concept(conn, name, cluster, opposites, category, expression):
+    conn.execute(
+        "UPDATE concepts SET cluster=?, opposites=?, category=?, expression=? WHERE name=?",
+        (cluster, opposites, category, expression, name)
+    )
+    conn.commit()
+
+
+def delete_concept(conn, name):
+    conn.execute("DELETE FROM concepts WHERE name=?", (name,))
+    conn.commit()
+
+
+def get_concept(conn, name):
+    return conn.execute(
+        "SELECT name, cluster, opposites, category, expression FROM concepts WHERE name=?",
+        (name,)
+    ).fetchone()
+
+
+def list_concepts(conn):
+    return conn.execute(
+        "SELECT name, cluster, opposites, category, expression FROM concepts ORDER BY name COLLATE NOCASE"
+    ).fetchall()
+
+
+def resolve_via_concept(conn, token: str):
+    """
+    Try to resolve an unknown token through the concept graph.
+    Returns (vevery_expression, concept_name, method) or (None, None, None).
+
+    method is one of:
+      'direct'   — token matched a concept name directly
+      'cluster'  — token found in a concept's cluster
+      'opposite' — token found in a concept's opposites (expression negated)
+    """
+    token_l = token.lower()
+
+    # 1. Direct concept name match
+    row = get_concept(conn, token_l)
+    if row:
+        expr = _concept_to_expression(conn, row)
+        if expr:
+            return expr, row[0], "direct"
+
+    # 2. Scan all concepts — check cluster and opposites fields
+    for row in list_concepts(conn):
+        name, cluster, opposites, category, expression = row
+        cluster_words  = [w.strip().lower() for w in cluster.split(",")  if w.strip()]
+        opposite_words = [w.strip().lower() for w in opposites.split(",") if w.strip()]
+
+        if token_l in cluster_words:
+            expr = _concept_to_expression(conn, row)
+            if expr:
+                return expr, name, "cluster"
+
+        if token_l in opposite_words:
+            expr = _concept_to_expression(conn, row)
+            if expr:
+                # Negate the expression using mavesone (not)
+                neg = _get_vevery(conn, "not") or "mavesone"
+                return f"{neg} {expr}", name, "opposite"
+
+    return None, None, None
+
+
+def _get_vevery(conn, english: str):
+    """Quick helper — get Vevery word for an English word."""
+    row = lookup_english(conn, english)
+    return row[1] if row else None
+
+
+def _concept_to_expression(conn, row) -> str:
+    """
+    Turn a concept row into a Vevery expression.
+    Priority:
+      1. Manual expression field
+      2. Direct dictionary lookup of concept name
+      3. Compound from top cluster words that exist in dictionary
+    """
+    name, cluster, opposites, category, expression = row
+
+    # 1. Manual override
+    if expression and expression.strip():
+        return expression.strip()
+
+    # 2. Direct lookup
+    direct = _get_vevery(conn, name)
+    if direct:
+        return direct
+
+    # 3. Compound from cluster
+    cluster_words = [w.strip() for w in cluster.split(",") if w.strip()]
+    found = []
+    for w in cluster_words[:3]:  # Use up to 3 cluster words
+        v = _get_vevery(conn, w)
+        if v:
+            found.append(v)
+        if len(found) == 2:
+            break
+
+    if found:
+        return "-".join(found)
+
+    return None
 
 
 # ── List ─────────────────────────────────────────────────────────────────────
