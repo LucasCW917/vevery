@@ -166,15 +166,19 @@ def prompt(text: str, default: str = "") -> str:
 # ── Number Conversion ────────────────────────────────────────────────────────
 
 DIGIT_WORDS = {
-    "0": "cosx", "1": "sat", "2": "jeg", "3": "mep",
-    "4": "poer", "5": "ill", "6": "nupturk", "7": "sevg",
-    "8": "yuktemb", "9": "nein",
+    "0": "numane",    "1": "sonuma",   "2": "vanuma",
+    "3": "mirnuma",   "4": "lorenuma", "5": "sevinuma",
+    "6": "havenuma",  "7": "belanuma", "8": "yovenuma",
+    "9": "zavenuma",
 }
 
 PLACE_WORDS = {
-    1: "sat", 2: "jeg", 3: "mep", 4: "poer", 5: "ill",
-    6: "nupturk", 7: "sevg", 8: "yuktemb", 9: "nein",
+    1: "sonuma",  2: "vanuma",   3: "mirnuma",
+    4: "lorenuma", 5: "sevinuma", 6: "havenuma",
+    7: "belanuma", 8: "yovenuma", 9: "zavenuma",
 }
+
+NUM_SEPARATOR = "mirévali"
 
 
 def place_to_vevery(place: int) -> str:
@@ -189,26 +193,16 @@ def place_to_vevery(place: int) -> str:
 
 
 def number_to_vevery(n: str) -> str:
-    """
-    Convert a numeric string (e.g. '7893') to Vevery digit-count format:
-    [digit_count] unj [digits left to right]
-    Single digits are returned as their word directly.
-    """
-    # Strip commas
     n = n.replace(",", "").replace("_", "")
     if not n.isdigit():
         return None
-
     if len(n) == 1:
         return DIGIT_WORDS[n]
-
-    count  = PLACE_WORDS.get(len(n))
+    count = PLACE_WORDS.get(len(n))
     if not count:
-        # For counts beyond 9 digits, express count itself recursively
         count = number_to_vevery(str(len(n)))
-
     digits = " ".join(DIGIT_WORDS[d] for d in n)
-    return f"{count} unj {digits}"
+    return f"{count} {NUM_SEPARATOR} {digits}"
 
 
 def is_number_token(word: str) -> bool:
@@ -219,20 +213,79 @@ def is_number_token(word: str) -> bool:
 
 # ── Sentence Translation ──────────────────────────────────────────────────────
 
+def lemmatize_token(token: str) -> list:
+    """
+    Return a list of candidate base forms for a token, in priority order.
+    Tries nltk lemmatizer first, then simple suffix stripping as fallback.
+    """
+    candidates = []
+
+    # nltk lemmatizer — try verb first, then noun, then adjective
+    try:
+        from nltk.stem import WordNetLemmatizer
+        lemmatizer = WordNetLemmatizer()
+        for pos in ("v", "n", "a", "r"):
+            lemma = lemmatizer.lemmatize(token, pos)
+            if lemma != token and lemma not in candidates:
+                candidates.append(lemma)
+    except Exception:
+        pass
+
+    # Simple suffix stripping fallback
+    suffix_rules = [
+        ("ying", "y"),   # trying -> try
+        ("ying", "ie"),  # dying -> die
+        ("ies",  "y"),   # tries -> try
+        ("ied",  "y"),   # tried -> try
+        ("ing",  "e"),   # taking -> take
+        ("ing",  ""),    # running -> run
+        ("ays",  "ay"),  # says -> say
+        ("ed",   "e"),   # liked -> like
+        ("ed",   ""),    # wanted -> want
+        ("ers",  "er"),  # runners -> runner
+        ("es",   "e"),   # takes -> take
+        ("es",   ""),    # watches -> watch
+        ("s",    ""),    # runs -> run
+        ("ly",   ""),    # truly -> true (rough)
+        ("er",   ""),    # bigger -> big (rough)
+        ("est",  ""),    # biggest -> big (rough)
+    ]
+    for suffix, replacement in suffix_rules:
+        if token.endswith(suffix) and len(token) - len(suffix) >= 2:
+            base = token[:-len(suffix)] + replacement
+            if base not in candidates:
+                candidates.append(base)
+
+    return candidates
+
+
 def resolve_english_token(conn: sqlite3.Connection, token: str):
     """Resolve a single English token to its Vevery word, checking redirects."""
-    # Check if it's a number first
+    # Number check
     if is_number_token(token):
         result = number_to_vevery(token)
         if result:
             return result, None
 
+    # Direct dictionary lookup
     row = lookup_english(conn, token)
     if row:
         return row[1], None
+
+    # Redirect lookup
     _, redirected = lookup_redirect(conn, token)
     if redirected:
         return redirected[1], None
+
+    # Lemmatizer + suffix fallback
+    for candidate in lemmatize_token(token):
+        row = lookup_english(conn, candidate)
+        if row:
+            return row[1], None
+        _, redirected = lookup_redirect(conn, candidate)
+        if redirected:
+            return redirected[1], None
+
     return None, token  # unknown
 
 
@@ -245,17 +298,26 @@ def resolve_vevery_token(conn: sqlite3.Connection, token: str):
 
 
 def strip_punctuation(token: str):
-    """Split a token into (leading_punct, core_word, trailing_punct)."""
-    import string
+    """
+    Split a token into (leading_punct, core_word, trailing_punct).
+    Apostrophes that are part of a word (c', ul', don't) are preserved.
+    Only sentence-level punctuation (.,!?;:) is stripped from edges.
+    """
+    SENTENCE_PUNCT = set('.,!?;:')
     lead  = ""
     trail = ""
     word  = token
-    while word and word[0] in string.punctuation:
+
+    # Strip leading sentence punctuation only
+    while word and word[0] in SENTENCE_PUNCT:
         lead += word[0]
         word  = word[1:]
-    while word and word[-1] in string.punctuation:
+
+    # Strip trailing sentence punctuation only
+    while word and word[-1] in SENTENCE_PUNCT:
         trail = word[-1] + trail
         word  = word[:-1]
+
     return lead, word, trail
 
 
@@ -310,6 +372,30 @@ def menu_translate_sentence(conn: sqlite3.Connection):
     translated, missing = translate_sentence(conn, sentence, direction)
     result = " ".join(translated)
 
+    # Capitalize after sentence boundaries (start, and after . ! ?)
+    def capitalize_sentences(text: str) -> str:
+        result = []
+        capitalize_next = True
+        inside_bracket = False
+        i = 0
+        while i < len(text):
+            ch = text[i]
+            if ch == "[":
+                inside_bracket = True
+            elif ch == "]":
+                inside_bracket = False
+            if capitalize_next and ch.isalpha():
+                result.append(ch.upper())
+                capitalize_next = False
+            else:
+                result.append(ch)
+            if ch in ".!?" and not inside_bracket:
+                capitalize_next = True
+            i += 1
+        return "".join(result)
+
+    result = capitalize_sentences(result)
+
     print(f"\n  {lang_from}:  {sentence}")
     print(f"  {lang_to}:   {result}")
 
@@ -320,7 +406,132 @@ def menu_translate_sentence(conn: sqlite3.Connection):
     input()
 
 
-# ── Menus ─────────────────────────────────────────────────────────────────────
+# ── Command Injection ─────────────────────────────────────────────────────────
+
+import shlex
+
+def parse_command(line: str, conn: sqlite3.Connection) -> str:
+    """Parse and execute a single !command. Returns a result string."""
+    line = line.strip()
+    if not line or not line.startswith("!"):
+        return f"  Skipped (not a command): {line}"
+
+    try:
+        parts = shlex.split(line[1:])  # Strip leading ! and tokenize
+    except ValueError as e:
+        return f"  Parse error: {e}"
+
+    if not parts:
+        return "  Empty command."
+
+    cmd = parts[0].lower()
+
+    # ── !add entry "english" "vevery" "pronunciation" "notes" ──
+    if cmd == "add" and len(parts) >= 2 and parts[1].lower() == "entry":
+        args = parts[2:]
+        if len(args) < 2:
+            return "  !add entry requires at least english and vevery."
+        english       = args[0]
+        vevery        = args[1]
+        pronunciation = args[2] if len(args) > 2 else ""
+        notes         = args[3] if len(args) > 3 else ""
+        existing = lookup_english(conn, english)
+        if existing:
+            update_word(conn, english, vevery, pronunciation, notes)
+            return f"  Updated:  {english} → {vevery}"
+        ok, err = add_word(conn, english, vevery, pronunciation, notes)
+        return f"  Added:    {english} → {vevery}" if ok else f"  Error:    {err}"
+
+    # ── !add redirect "alias" "english" ──
+    elif cmd == "add" and len(parts) >= 2 and parts[1].lower() == "redirect":
+        args = parts[2:]
+        if len(args) < 2:
+            return "  !add redirect requires alias and english."
+        alias, english = args[0], args[1]
+        if not lookup_english(conn, english):
+            return f"  Error: \"{english}\" not in dictionary."
+        ok, err = add_redirect(conn, alias, english)
+        return f"  Redirect: \"{alias}\" → \"{english}\"" if ok else f"  Error:    {err}"
+
+    # ── !rm entry "english" ──
+    elif cmd == "rm" and len(parts) >= 2 and parts[1].lower() == "entry":
+        if len(parts) < 3:
+            return "  !rm entry requires an english word."
+        english = parts[2]
+        if not lookup_english(conn, english):
+            return f"  Not found: \"{english}\""
+        delete_word(conn, english)
+        return f"  Removed:  \"{english}\""
+
+    # ── !rm redirect "alias" ──
+    elif cmd == "rm" and len(parts) >= 2 and parts[1].lower() == "redirect":
+        if len(parts) < 3:
+            return "  !rm redirect requires an alias."
+        alias = parts[2]
+        target, _ = lookup_redirect(conn, alias)
+        if not target:
+            return f"  Not found: \"{alias}\""
+        delete_redirect(conn, alias)
+        return f"  Removed redirect: \"{alias}\""
+
+    # ── !edit "english" "field" "new value" ──
+    elif cmd == "edit":
+        if len(parts) < 4:
+            return "  !edit requires english, field, and new value."
+        english, field, value = parts[1], parts[2].lower(), parts[3]
+        if field not in ("english", "vevery", "pronunciation", "notes"):
+            return f"  Unknown field: \"{field}\". Use: english, vevery, pronunciation, notes."
+        if not lookup_english(conn, english):
+            return f"  Not found: \"{english}\""
+        conn.execute(f"UPDATE dictionary SET {field} = ? WHERE english = ?", (value, english))
+        conn.commit()
+        return f"  Edited:   {english} → {field} = \"{value}\""
+
+    else:
+        return f"  Unknown command: {line}"
+
+
+def menu_inject(conn: sqlite3.Connection):
+    print("\n  Command Injection")
+    print("  Paste semicolon-separated commands, then press Enter twice.")
+    print("  Syntax:")
+    print('    !add entry "english" "vevery" "pronunciation" "notes";')
+    print('    !add redirect "alias" "english";')
+    print('    !rm entry "english";')
+    print('    !rm redirect "alias";')
+    print('    !edit "english" "field" "new value";')
+    print()
+
+    lines = []
+    while True:
+        line = input("  > ")
+        if line.strip() == "":
+            break
+        lines.append(line)
+
+    raw = " ".join(lines)
+    commands = [c.strip() for c in raw.split(";") if c.strip()]
+
+    if not commands:
+        print("\n  No commands found.")
+        input()
+        return
+
+    print(f"\n  Processing {len(commands)} command(s)...\n")
+    ok_count  = 0
+    err_count = 0
+    for cmd in commands:
+        result = parse_command(cmd, conn)
+        print(result)
+        if "Error" in result or "Unknown" in result or "not found" in result.lower():
+            err_count += 1
+        else:
+            ok_count += 1
+
+    print(f"\n  Done. {ok_count} succeeded, {err_count} failed.")
+    input()
+
+
 
 def menu_translate(conn: sqlite3.Connection):
     print("\n  Translate")
@@ -536,7 +747,25 @@ def menu_list(conn: sqlite3.Connection):
 
 # ── Main loop ────────────────────────────────────────────────────────────────
 
+def ensure_nltk():
+    """Download required nltk data if not already present."""
+    try:
+        import nltk
+        try:
+            from nltk.stem import WordNetLemmatizer
+            WordNetLemmatizer().lemmatize("test", "v")
+        except LookupError:
+            print("  Downloading language data (one-time setup)...")
+            nltk.download("wordnet", quiet=True)
+            nltk.download("omw-1.4", quiet=True)
+            print("  Done.\n")
+    except ImportError:
+        print("  Warning: nltk not installed. Run: pip install nltk")
+        print("  Lemmatizer fallback will be disabled.\n")
+
+
 def main():
+    ensure_nltk()
     conn = sqlite3.connect(DB_FILE)
     init_db(conn)
 
@@ -553,6 +782,7 @@ def main():
         print("  [5] Delete a word")
         print("  [6] List all words")
         print("  [7] Redirects")
+        print("  [8] Inject commands")
         print("  [q] Quit")
         choice = prompt("\n  > ").lower()
 
@@ -572,6 +802,8 @@ def main():
             menu_list(conn)
         elif choice == "7":
             menu_redirects(conn)
+        elif choice == "8":
+            menu_inject(conn)
         elif choice in ("q", "quit", "exit"):
             print("\n  Goodbye.\n")
             conn.close()
