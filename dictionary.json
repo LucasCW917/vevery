@@ -1,0 +1,2173 @@
+{
+  "language": "Vevery",
+  "version": "1.0",
+  "site": "lucascw917.github.io/vevery/",
+  "entries": [
+    {
+      "english": "a",
+      "vevery": "sonéyora",
+      "pronunciation": "so-neh-yo-ra",
+      "notes": "indefinite article"
+    },
+    {
+      "english": "able",
+      "vevery": "sorélusevi",
+      "pronunciation": "so-reh-lu-se-vi",
+      "notes": "able, capable"
+    },
+    {
+      "english": "about",
+      "vevery": "valisorélu",
+      "pronunciation": "va-li-so-reh-lu",
+      "notes": "about, regarding"
+    },
+    {
+      "english": "across",
+      "vevery": "sevimiruvali",
+      "pronunciation": "se-vi-mi-ru-va-li",
+      "notes": "across"
+    },
+    {
+      "english": "act",
+      "vevery": "seviyorusoné",
+      "pronunciation": "se-vi-yo-ru-so-neh",
+      "notes": "an act"
+    },
+    {
+      "english": "add",
+      "vevery": "numaveli",
+      "pronunciation": "nu-ma-ve-li",
+      "notes": "addition operator (+)"
+    },
+    {
+      "english": "after",
+      "vevery": "harebelu",
+      "pronunciation": "ha-re-be-lu",
+      "notes": "time word after"
+    },
+    {
+      "english": "ago",
+      "vevery": "harevali",
+      "pronunciation": "ha-re-va-li",
+      "notes": "time word ago"
+    },
+    {
+      "english": "all",
+      "vevery": "miruvalu",
+      "pronunciation": "mi-ru-va-lu",
+      "notes": "all, everything"
+    },
+    {
+      "english": "already",
+      "vevery": "haresoneloré",
+      "pronunciation": "ha-re-so-ne-lo-reh",
+      "notes": "already"
+    },
+    {
+      "english": "am",
+      "vevery": "sorélusoné",
+      "pronunciation": "so-reh-lu-so-neh",
+      "notes": "first person to be"
+    },
+    {
+      "english": "and",
+      "vevery": "mirévali",
+      "pronunciation": "mi-reh-va-li",
+      "notes": "conjunction and"
+    },
+    {
+      "english": "another",
+      "vevery": "valisoneyu",
+      "pronunciation": "va-li-so-ne-yu",
+      "notes": "another, a different one"
+    },
+    {
+      "english": "anticipate",
+      "vevery": "nolerevasevi",
+      "pronunciation": "no-le-re-va-se-vi",
+      "notes": "to anticipate"
+    },
+    {
+      "english": "any",
+      "vevery": "valimirusoné",
+      "pronunciation": "va-li-mi-ru-so-neh",
+      "notes": "any"
+    },
+    {
+      "english": "are",
+      "vevery": "miroloré",
+      "pronunciation": "mi-ro-lo-reh",
+      "notes": "to be plural present"
+    },
+    {
+      "english": "as",
+      "vevery": "sorélusevimiru",
+      "pronunciation": "so-reh-lu-se-vi-mi-ru",
+      "notes": "as, in the role of"
+    },
+    {
+      "english": "assumption",
+      "vevery": "belusoneloré",
+      "pronunciation": "be-lu-so-ne-lo-reh",
+      "notes": "an assumption"
+    },
+    {
+      "english": "at",
+      "vevery": "yorésevi",
+      "pronunciation": "yo-reh-se-vi",
+      "notes": "preposition at"
+    },
+    {
+      "english": "attempt",
+      "vevery": "seviyorumave",
+      "pronunciation": "se-vi-yo-ru-ma-ve",
+      "notes": "an attempt"
+    },
+    {
+      "english": "available",
+      "vevery": "soréluvalimire",
+      "pronunciation": "so-reh-lu-va-li-mi-re",
+      "notes": "available"
+    },
+    {
+      "english": "awkward",
+      "vevery": "mavesoneloréva",
+      "pronunciation": "ma-ve-so-ne-lo-reh-va",
+      "notes": "awkward, uncomfortable"
+    },
+    {
+      "english": "bad",
+      "vevery": "mavevari",
+      "pronunciation": "ma-ve-va-ri",
+      "notes": "adjective bad"
+    },
+    {
+      "english": "be",
+      "vevery": "sorélu",
+      "pronunciation": "so-reh-lu",
+      "notes": "to be, existence"
+    },
+    {
+      "english": "because",
+      "vevery": "valibelu",
+      "pronunciation": "va-li-be-lu",
+      "notes": "causal because"
+    },
+    {
+      "english": "become",
+      "vevery": "sevisoneloréva",
+      "pronunciation": "se-vi-so-ne-lo-reh-va",
+      "notes": "to become"
+    },
+    {
+      "english": "before",
+      "vevery": "haremave",
+      "pronunciation": "ha-re-ma-ve",
+      "notes": "time word before"
+    },
+    {
+      "english": "begin",
+      "vevery": "sevisonevu",
+      "pronunciation": "se-vi-so-ne-vu",
+      "notes": "to begin"
+    },
+    {
+      "english": "belief",
+      "vevery": "belunolesone",
+      "pronunciation": "be-lu-no-le-so-ne",
+      "notes": "a belief"
+    },
+    {
+      "english": "believe",
+      "vevery": "belunolevari",
+      "pronunciation": "be-lu-no-le-va-ri",
+      "notes": "to believe"
+    },
+    {
+      "english": "between",
+      "vevery": "valisevimire",
+      "pronunciation": "va-li-se-vi-mi-re",
+      "notes": "between"
+    },
+    {
+      "english": "big",
+      "vevery": "miruvari",
+      "pronunciation": "mi-ru-va-ri",
+      "notes": "adjective big"
+    },
+    {
+      "english": "boundary",
+      "vevery": "soréluvalimiru",
+      "pronunciation": "so-reh-lu-va-li-mi-ru",
+      "notes": "a boundary"
+    },
+    {
+      "english": "bridge",
+      "vevery": "seviloréne",
+      "pronunciation": "se-vi-lo-reh-ne",
+      "notes": "a bridge"
+    },
+    {
+      "english": "but",
+      "vevery": "mavevali",
+      "pronunciation": "ma-ve-va-li",
+      "notes": "conjunction but"
+    },
+    {
+      "english": "call",
+      "vevery": "luneyoru",
+      "pronunciation": "lu-ne-yo-ru",
+      "notes": "to call or name"
+    },
+    {
+      "english": "certain",
+      "vevery": "belusoréva",
+      "pronunciation": "be-lu-so-reh-va",
+      "notes": "sure, certain"
+    },
+    {
+      "english": "certainty",
+      "vevery": "belusoreluva",
+      "pronunciation": "be-lu-so-re-lu-va",
+      "notes": "certainty"
+    },
+    {
+      "english": "challenge",
+      "vevery": "mavesevivali",
+      "pronunciation": "ma-ve-se-vi-va-li",
+      "notes": "to challenge"
+    },
+    {
+      "english": "change",
+      "vevery": "sevisonelorémi",
+      "pronunciation": "se-vi-so-ne-lo-reh-mi",
+      "notes": "to change"
+    },
+    {
+      "english": "clear",
+      "vevery": "belurevasone",
+      "pronunciation": "be-lu-re-va-so-ne",
+      "notes": "clear"
+    },
+    {
+      "english": "collapse",
+      "vevery": "mavemiruloréva",
+      "pronunciation": "ma-ve-mi-ru-lo-reh-va",
+      "notes": "to collapse"
+    },
+    {
+      "english": "come",
+      "vevery": "sevisoné",
+      "pronunciation": "se-vi-so-neh",
+      "notes": "to come"
+    },
+    {
+      "english": "computer",
+      "vevery": "zaveyoruloré",
+      "pronunciation": "za-ve-yo-ru-lo-reh",
+      "notes": "computing machine"
+    },
+    {
+      "english": "conclusion",
+      "vevery": "sevilorébeluvali",
+      "pronunciation": "se-vi-lo-reh-be-lu-va-li",
+      "notes": "a conclusion"
+    },
+    {
+      "english": "condition",
+      "vevery": "sorélumiruva",
+      "pronunciation": "so-reh-lu-mi-ru-va",
+      "notes": "a condition"
+    },
+    {
+      "english": "consider",
+      "vevery": "nolesevivali",
+      "pronunciation": "no-le-se-vi-va-li",
+      "notes": "to consider"
+    },
+    {
+      "english": "continuous",
+      "vevery": "mirusevisone",
+      "pronunciation": "mi-ru-se-vi-so-ne",
+      "notes": "continuous"
+    },
+    {
+      "english": "could",
+      "vevery": "soréluseviva",
+      "pronunciation": "so-reh-lu-se-vi-va",
+      "notes": "could, past able"
+    },
+    {
+      "english": "currently",
+      "vevery": "haresonévali",
+      "pronunciation": "ha-re-so-neh-va-li",
+      "notes": "currently"
+    },
+    {
+      "english": "day",
+      "vevery": "hare",
+      "pronunciation": "ha-reh",
+      "notes": "time unit day"
+    },
+    {
+      "english": "decide",
+      "vevery": "noleseviyoru",
+      "pronunciation": "no-le-se-vi-yo-ru",
+      "notes": "to decide"
+    },
+    {
+      "english": "decision",
+      "vevery": "noleseviyoruva",
+      "pronunciation": "no-le-se-vi-yo-ru-va",
+      "notes": "a decision"
+    },
+    {
+      "english": "define",
+      "vevery": "noleyorumiru",
+      "pronunciation": "no-le-yo-ru-mi-ru",
+      "notes": "to define"
+    },
+    {
+      "english": "deny",
+      "vevery": "maveyoruloré",
+      "pronunciation": "ma-ve-yo-ru-lo-reh",
+      "notes": "to deny"
+    },
+    {
+      "english": "depend",
+      "vevery": "soréluvaliyoru",
+      "pronunciation": "so-reh-lu-va-li-yo-ru",
+      "notes": "to depend"
+    },
+    {
+      "english": "design",
+      "vevery": "zaveloréyoru",
+      "pronunciation": "za-ve-lo-reh-yo-ru",
+      "notes": "to design"
+    },
+    {
+      "english": "dictionary",
+      "vevery": "woraaeve",
+      "pronunciation": "wo-ra-ae-ve",
+      "notes": "store of words"
+    },
+    {
+      "english": "different",
+      "vevery": "valisoréva",
+      "pronunciation": "va-li-so-reh-va",
+      "notes": "different"
+    },
+    {
+      "english": "distinction",
+      "vevery": "revasonevali",
+      "pronunciation": "re-va-so-ne-va-li",
+      "notes": "a distinction"
+    },
+    {
+      "english": "divide",
+      "vevery": "numasevi",
+      "pronunciation": "nu-ma-se-vi",
+      "notes": "division operator (/)"
+    },
+    {
+      "english": "doubt",
+      "vevery": "mavenolesone",
+      "pronunciation": "ma-ve-no-le-so-ne",
+      "notes": "doubt"
+    },
+    {
+      "english": "each",
+      "vevery": "soneyorumiru",
+      "pronunciation": "so-ne-yo-ru-mi-ru",
+      "notes": "each"
+    },
+    {
+      "english": "eight",
+      "vevery": "yovenuma",
+      "pronunciation": "yo-ve-nu-ma",
+      "notes": "the number eight"
+    },
+    {
+      "english": "eliminate",
+      "vevery": "maveyorumiru",
+      "pronunciation": "ma-ve-yo-ru-mi-ru",
+      "notes": "to eliminate"
+    },
+    {
+      "english": "enough",
+      "vevery": "belumiruvalisone",
+      "pronunciation": "be-lu-mi-ru-va-li-so-ne",
+      "notes": "enough"
+    },
+    {
+      "english": "equals",
+      "vevery": "numasoné",
+      "pronunciation": "nu-ma-so-neh",
+      "notes": "equals operator (=)"
+    },
+    {
+      "english": "especially",
+      "vevery": "mirubeluvali",
+      "pronunciation": "mi-ru-be-lu-va-li",
+      "notes": "especially"
+    },
+    {
+      "english": "even",
+      "vevery": "mirusorélu",
+      "pronunciation": "mi-ru-so-reh-lu",
+      "notes": "even, emphasis"
+    },
+    {
+      "english": "eventually",
+      "vevery": "sevimiruloré",
+      "pronunciation": "se-vi-mi-ru-lo-reh",
+      "notes": "eventually"
+    },
+    {
+      "english": "every",
+      "vevery": "miruyoruvali",
+      "pronunciation": "mi-ru-yo-ru-va-li",
+      "notes": "every"
+    },
+    {
+      "english": "everything",
+      "vevery": "miruyoru",
+      "pronunciation": "mi-ru-yo-ru",
+      "notes": "everything, all things"
+    },
+    {
+      "english": "exist",
+      "vevery": "yorésone",
+      "pronunciation": "yo-reh-so-ne",
+      "notes": "to exist"
+    },
+    {
+      "english": "expectation",
+      "vevery": "nolemirusone",
+      "pronunciation": "no-le-mi-ru-so-ne",
+      "notes": "expectation"
+    },
+    {
+      "english": "fact",
+      "vevery": "beluyorusoné",
+      "pronunciation": "be-lu-yo-ru-so-neh",
+      "notes": "a fact"
+    },
+    {
+      "english": "false",
+      "vevery": "maveyoru",
+      "pronunciation": "ma-ve-yo-ru",
+      "notes": "adjective false"
+    },
+    {
+      "english": "feel",
+      "vevery": "oemisoné",
+      "pronunciation": "oe-mi-so-neh",
+      "notes": "to feel"
+    },
+    {
+      "english": "final",
+      "vevery": "sevilorésoné",
+      "pronunciation": "se-vi-lo-reh-so-neh",
+      "notes": "final"
+    },
+    {
+      "english": "five",
+      "vevery": "sevinuma",
+      "pronunciation": "se-vi-nu-ma",
+      "notes": "the number five"
+    },
+    {
+      "english": "fixed",
+      "vevery": "sorélumiruloréva",
+      "pronunciation": "so-reh-lu-mi-ru-lo-reh-va",
+      "notes": "fixed, unchanging"
+    },
+    {
+      "english": "formalize",
+      "vevery": "zavelorémirusone",
+      "pronunciation": "za-ve-lo-reh-mi-ru-so-ne",
+      "notes": "to formalize"
+    },
+    {
+      "english": "fortnight",
+      "vevery": "harevanumiru",
+      "pronunciation": "ha-re-va-nu-mi-ru",
+      "notes": "time unit fortnight"
+    },
+    {
+      "english": "four",
+      "vevery": "lorenuma",
+      "pronunciation": "lo-reh-nu-ma",
+      "notes": "the number four"
+    },
+    {
+      "english": "from",
+      "vevery": "valisone",
+      "pronunciation": "va-li-so-ne",
+      "notes": "preposition from"
+    },
+    {
+      "english": "generate",
+      "vevery": "zavemiruloré",
+      "pronunciation": "za-ve-mi-ru-lo-reh",
+      "notes": "to generate"
+    },
+    {
+      "english": "give",
+      "vevery": "valiyoru",
+      "pronunciation": "va-li-yo-ru",
+      "notes": "to give"
+    },
+    {
+      "english": "go",
+      "vevery": "sevivali",
+      "pronunciation": "se-vi-va-li",
+      "notes": "to go"
+    },
+    {
+      "english": "good",
+      "vevery": "beluvari",
+      "pronunciation": "be-lu-va-ri",
+      "notes": "adjective good"
+    },
+    {
+      "english": "great",
+      "vevery": "mirubeluvari",
+      "pronunciation": "mi-ru-be-lu-va-ri",
+      "notes": "great, large in quality"
+    },
+    {
+      "english": "guess",
+      "vevery": "nolemiruseviva",
+      "pronunciation": "no-le-mi-ru-se-vi-va",
+      "notes": "to guess"
+    },
+    {
+      "english": "hate",
+      "vevery": "oemimaeve",
+      "pronunciation": "oe-mi-ma-eve",
+      "notes": "to hate"
+    },
+    {
+      "english": "have",
+      "vevery": "aevevali",
+      "pronunciation": "ae-ve-va-li",
+      "notes": "to have"
+    },
+    {
+      "english": "he",
+      "vevery": "sané",
+      "pronunciation": "sa-neh",
+      "notes": "third person singular masculine pronoun"
+    },
+    {
+      "english": "hear",
+      "vevery": "revalune",
+      "pronunciation": "re-va-lu-ne",
+      "notes": "to hear"
+    },
+    {
+      "english": "hour",
+      "vevery": "haremirnuma",
+      "pronunciation": "ha-re-mir-nu-ma",
+      "notes": "time unit hour"
+    },
+    {
+      "english": "I",
+      "vevery": "soné",
+      "pronunciation": "so-neh",
+      "notes": "first person singular pronoun"
+    },
+    {
+      "english": "identity",
+      "vevery": "sorélusoneva",
+      "pronunciation": "so-reh-lu-so-ne-va",
+      "notes": "identity"
+    },
+    {
+      "english": "if",
+      "vevery": "sonevali",
+      "pronunciation": "so-ne-va-li",
+      "notes": "conditional if"
+    },
+    {
+      "english": "illusion",
+      "vevery": "mavenolevari",
+      "pronunciation": "ma-ve-no-le-va-ri",
+      "notes": "an illusion"
+    },
+    {
+      "english": "immediately",
+      "vevery": "haresonevu",
+      "pronunciation": "ha-re-so-ne-vu",
+      "notes": "immediately"
+    },
+    {
+      "english": "impossible",
+      "vevery": "mavesorelusevi",
+      "pronunciation": "ma-ve-so-re-lu-se-vi",
+      "notes": "impossible"
+    },
+    {
+      "english": "in",
+      "vevery": "soreaeve",
+      "pronunciation": "so-re-ae-ve",
+      "notes": "preposition in"
+    },
+    {
+      "english": "incomplete",
+      "vevery": "mavemiruyoru",
+      "pronunciation": "ma-ve-mi-ru-yo-ru",
+      "notes": "incomplete"
+    },
+    {
+      "english": "independently",
+      "vevery": "mavesorelusone",
+      "pronunciation": "ma-ve-so-re-lu-so-ne",
+      "notes": "independently"
+    },
+    {
+      "english": "indistinguishable",
+      "vevery": "maverevasoneloré",
+      "pronunciation": "ma-ve-re-va-so-ne-lo-reh",
+      "notes": "indistinguishable"
+    },
+    {
+      "english": "influence",
+      "vevery": "sevisoneloré",
+      "pronunciation": "se-vi-so-ne-lo-reh",
+      "notes": "to influence"
+    },
+    {
+      "english": "interpret",
+      "vevery": "nolemiruloré",
+      "pronunciation": "no-le-mi-ru-lo-reh",
+      "notes": "to interpret"
+    },
+    {
+      "english": "interpretation",
+      "vevery": "nolemiruvaline",
+      "pronunciation": "no-le-mi-ru-va-li-ne",
+      "notes": "interpretation"
+    },
+    {
+      "english": "into",
+      "vevery": "soreluaeve",
+      "pronunciation": "so-re-lu-ae-ve",
+      "notes": "into"
+    },
+    {
+      "english": "introduce",
+      "vevery": "zavesonevalisone",
+      "pronunciation": "za-ve-so-ne-va-li-so-ne",
+      "notes": "to introduce"
+    },
+    {
+      "english": "invalidate",
+      "vevery": "maveyorusoné",
+      "pronunciation": "ma-ve-yo-ru-so-neh",
+      "notes": "to invalidate"
+    },
+    {
+      "english": "is",
+      "vevery": "soneloré",
+      "pronunciation": "so-ne-lo-reh",
+      "notes": "to be singular present"
+    },
+    {
+      "english": "it",
+      "vevery": "yoré",
+      "pronunciation": "yo-reh",
+      "notes": "third person singular neutral pronoun"
+    },
+    {
+      "english": "itself",
+      "vevery": "yorésoné",
+      "pronunciation": "yo-reh-so-neh",
+      "notes": "itself, self-referential"
+    },
+    {
+      "english": "keyboard",
+      "vevery": "lunesonevali",
+      "pronunciation": "lu-ne-so-ne-va-li",
+      "notes": "keyboard input device"
+    },
+    {
+      "english": "know",
+      "vevery": "nolevari",
+      "pronunciation": "no-le-va-ri",
+      "notes": "to know"
+    },
+    {
+      "english": "knowledge",
+      "vevery": "nolemiru",
+      "pronunciation": "no-le-mi-ru",
+      "notes": "knowledge"
+    },
+    {
+      "english": "language",
+      "vevery": "woralore",
+      "pronunciation": "wo-ra-lo-re",
+      "notes": "a language"
+    },
+    {
+      "english": "layer",
+      "vevery": "soréluloréva",
+      "pronunciation": "so-reh-lu-lo-reh-va",
+      "notes": "a layer"
+    },
+    {
+      "english": "lie",
+      "vevery": "maveluneso",
+      "pronunciation": "ma-ve-lu-ne-so",
+      "notes": "to lie, to deceive"
+    },
+    {
+      "english": "long",
+      "vevery": "miruharevalisone",
+      "pronunciation": "mi-ru-ha-re-va-li-so-ne",
+      "notes": "long in duration"
+    },
+    {
+      "english": "love",
+      "vevery": "oemibelu",
+      "pronunciation": "oe-mi-be-lu",
+      "notes": "to love"
+    },
+    {
+      "english": "lying",
+      "vevery": "mavelunemi",
+      "pronunciation": "ma-ve-lu-ne-mi",
+      "notes": "act of lying"
+    },
+    {
+      "english": "make",
+      "vevery": "zaveyoru",
+      "pronunciation": "za-ve-yo-ru",
+      "notes": "to make or create"
+    },
+    {
+      "english": "me",
+      "vevery": "sonéyoru",
+      "pronunciation": "so-neh-yo-ru",
+      "notes": "object pronoun me"
+    },
+    {
+      "english": "mean",
+      "vevery": "noleyoruso",
+      "pronunciation": "no-le-yo-ru-so",
+      "notes": "to mean, to intend"
+    },
+    {
+      "english": "meaning",
+      "vevery": "noleyorévali",
+      "pronunciation": "no-le-yo-reh-va-li",
+      "notes": "meaning, significance"
+    },
+    {
+      "english": "memory",
+      "vevery": "aevenovale",
+      "pronunciation": "ae-ve-no-va-le",
+      "notes": "memory"
+    },
+    {
+      "english": "might",
+      "vevery": "valisevi",
+      "pronunciation": "va-li-se-vi",
+      "notes": "possibility, might"
+    },
+    {
+      "english": "mind",
+      "vevery": "nolesone",
+      "pronunciation": "no-le-so-ne",
+      "notes": "the mind"
+    },
+    {
+      "english": "minute",
+      "vevery": "harevanuma",
+      "pronunciation": "ha-re-va-nu-ma",
+      "notes": "time unit minute"
+    },
+    {
+      "english": "month",
+      "vevery": "harelore",
+      "pronunciation": "ha-re-lo-re",
+      "notes": "time unit month"
+    },
+    {
+      "english": "more",
+      "vevery": "mirusoréva",
+      "pronunciation": "mi-ru-so-reh-va",
+      "notes": "more"
+    },
+    {
+      "english": "mouse",
+      "vevery": "seviyoruné",
+      "pronunciation": "se-vi-yo-ru-neh",
+      "notes": "mouse input device"
+    },
+    {
+      "english": "multiply",
+      "vevery": "numamiru",
+      "pronunciation": "nu-ma-mi-ru",
+      "notes": "multiplication operator (*)"
+    },
+    {
+      "english": "murder",
+      "vevery": "mavesevi",
+      "pronunciation": "ma-ve-se-vi",
+      "notes": "to murder"
+    },
+    {
+      "english": "new",
+      "vevery": "zavevari",
+      "pronunciation": "za-ve-va-ri",
+      "notes": "adjective new"
+    },
+    {
+      "english": "nine",
+      "vevery": "zavenuma",
+      "pronunciation": "za-ve-nu-ma",
+      "notes": "the number nine"
+    },
+    {
+      "english": "noise",
+      "vevery": "mirulune",
+      "pronunciation": "mi-ru-lu-ne",
+      "notes": "noise"
+    },
+    {
+      "english": "not",
+      "vevery": "mavesone",
+      "pronunciation": "ma-ve-so-ne",
+      "notes": "negation particle"
+    },
+    {
+      "english": "notes",
+      "vevery": "luneaeve",
+      "pronunciation": "lu-ne-ae-ve",
+      "notes": "musical or written notes"
+    },
+    {
+      "english": "now",
+      "vevery": "haresoné",
+      "pronunciation": "ha-re-so-neh",
+      "notes": "time word now"
+    },
+    {
+      "english": "observe",
+      "vevery": "revamirusone",
+      "pronunciation": "re-va-mi-ru-so-ne",
+      "notes": "to observe"
+    },
+    {
+      "english": "of",
+      "vevery": "aeveyoru",
+      "pronunciation": "ae-ve-yo-ru",
+      "notes": "preposition of"
+    },
+    {
+      "english": "often",
+      "vevery": "miruharesoné",
+      "pronunciation": "mi-ru-ha-re-so-neh",
+      "notes": "often"
+    },
+    {
+      "english": "old",
+      "vevery": "aevevari",
+      "pronunciation": "ae-ve-va-ri",
+      "notes": "adjective old"
+    },
+    {
+      "english": "on",
+      "vevery": "belusevi",
+      "pronunciation": "be-lu-se-vi",
+      "notes": "preposition on"
+    },
+    {
+      "english": "one",
+      "vevery": "sonuma",
+      "pronunciation": "so-nu-ma",
+      "notes": "the number one"
+    },
+    {
+      "english": "only",
+      "vevery": "sonevalisoré",
+      "pronunciation": "so-ne-va-li-so-reh",
+      "notes": "only, solely"
+    },
+    {
+      "english": "or",
+      "vevery": "valivané",
+      "pronunciation": "va-li-va-neh",
+      "notes": "conjunction or"
+    },
+    {
+      "english": "other",
+      "vevery": "valisonevu",
+      "pronunciation": "va-li-so-ne-vu",
+      "notes": "other"
+    },
+    {
+      "english": "out",
+      "vevery": "valiaeve",
+      "pronunciation": "va-li-ae-ve",
+      "notes": "preposition out"
+    },
+    {
+      "english": "over",
+      "vevery": "seviloré",
+      "pronunciation": "se-vi-lo-reh",
+      "notes": "fraction separator (/)"
+    },
+    {
+      "english": "perspective",
+      "vevery": "revasorélu",
+      "pronunciation": "re-va-so-reh-lu",
+      "notes": "perspective"
+    },
+    {
+      "english": "point",
+      "vevery": "sorélusoneloré",
+      "pronunciation": "so-reh-lu-so-ne-lo-reh",
+      "notes": "a point"
+    },
+    {
+      "english": "possible",
+      "vevery": "soréluseviloré",
+      "pronunciation": "so-reh-lu-se-vi-lo-reh",
+      "notes": "possible"
+    },
+    {
+      "english": "power",
+      "vevery": "numalore",
+      "pronunciation": "nu-ma-lo-reh",
+      "notes": "exponentiation operator (^)"
+    },
+    {
+      "english": "preparation",
+      "vevery": "zavesoreluva",
+      "pronunciation": "za-ve-so-re-lu-va",
+      "notes": "preparation"
+    },
+    {
+      "english": "prepare",
+      "vevery": "zavesorélu",
+      "pronunciation": "za-ve-so-reh-lu",
+      "notes": "to prepare"
+    },
+    {
+      "english": "preserve",
+      "vevery": "aevevalisone",
+      "pronunciation": "ae-ve-va-li-so-ne",
+      "notes": "to preserve"
+    },
+    {
+      "english": "prevent",
+      "vevery": "maveseviyoru",
+      "pronunciation": "ma-ve-se-vi-yo-ru",
+      "notes": "to prevent"
+    },
+    {
+      "english": "process",
+      "vevery": "sevilorémirusone",
+      "pronunciation": "se-vi-lo-reh-mi-ru-so-ne",
+      "notes": "a process"
+    },
+    {
+      "english": "produce",
+      "vevery": "zavemirusone",
+      "pronunciation": "za-ve-mi-ru-so-ne",
+      "notes": "to produce"
+    },
+    {
+      "english": "reach",
+      "vevery": "sevibeluvali",
+      "pronunciation": "se-vi-be-lu-va-li",
+      "notes": "to reach"
+    },
+    {
+      "english": "read",
+      "vevery": "revanoleso",
+      "pronunciation": "re-va-no-le-so",
+      "notes": "to read"
+    },
+    {
+      "english": "real",
+      "vevery": "belumiru",
+      "pronunciation": "be-lu-mi-ru",
+      "notes": "adjective real"
+    },
+    {
+      "english": "realize",
+      "vevery": "nolerevasone",
+      "pronunciation": "no-le-re-va-so-ne",
+      "notes": "to realize"
+    },
+    {
+      "english": "reconstruction",
+      "vevery": "zavesoneloré",
+      "pronunciation": "za-ve-so-ne-lo-reh",
+      "notes": "reconstruction"
+    },
+    {
+      "english": "recursive",
+      "vevery": "sorélumiruloré",
+      "pronunciation": "so-reh-lu-mi-ru-lo-reh",
+      "notes": "recursive"
+    },
+    {
+      "english": "reference",
+      "vevery": "noleyoruvali",
+      "pronunciation": "no-le-yo-ru-va-li",
+      "notes": "a reference"
+    },
+    {
+      "english": "relation",
+      "vevery": "mirusonevali",
+      "pronunciation": "mi-ru-so-ne-va-li",
+      "notes": "a relationship"
+    },
+    {
+      "english": "remain",
+      "vevery": "sorélusonevu",
+      "pronunciation": "so-reh-lu-so-ne-vu",
+      "notes": "to remain"
+    },
+    {
+      "english": "resolution",
+      "vevery": "belumiruvali",
+      "pronunciation": "be-lu-mi-ru-va-li",
+      "notes": "resolution"
+    },
+    {
+      "english": "rewrite",
+      "vevery": "zavewora",
+      "pronunciation": "za-ve-wo-ra",
+      "notes": "to rewrite"
+    },
+    {
+      "english": "river",
+      "vevery": "valisevimiru",
+      "pronunciation": "va-li-se-vi-mi-ru",
+      "notes": "a river"
+    },
+    {
+      "english": "same",
+      "vevery": "sorélusone",
+      "pronunciation": "so-reh-lu-so-ne",
+      "notes": "same, identical"
+    },
+    {
+      "english": "say",
+      "vevery": "lunesone",
+      "pronunciation": "lu-ne-so-ne",
+      "notes": "to say or speak"
+    },
+    {
+      "english": "second",
+      "vevery": "haresonuma",
+      "pronunciation": "ha-re-so-nu-ma",
+      "notes": "time unit second"
+    },
+    {
+      "english": "see",
+      "vevery": "revasone",
+      "pronunciation": "re-va-so-ne",
+      "notes": "to see"
+    },
+    {
+      "english": "sentence",
+      "vevery": "luneworalore",
+      "pronunciation": "lu-ne-wo-ra-lo-re",
+      "notes": "a sentence"
+    },
+    {
+      "english": "seven",
+      "vevery": "belanuma",
+      "pronunciation": "be-la-nu-ma",
+      "notes": "the number seven"
+    },
+    {
+      "english": "shape",
+      "vevery": "zavesonevali",
+      "pronunciation": "za-ve-so-ne-va-li",
+      "notes": "to shape"
+    },
+    {
+      "english": "she",
+      "vevery": "saéne",
+      "pronunciation": "sa-eh-neh",
+      "notes": "third person singular feminine pronoun"
+    },
+    {
+      "english": "signal",
+      "vevery": "lunemiruvali",
+      "pronunciation": "lu-ne-mi-ru-va-li",
+      "notes": "a signal"
+    },
+    {
+      "english": "silence",
+      "vevery": "mavelune",
+      "pronunciation": "ma-ve-lu-ne",
+      "notes": "silence"
+    },
+    {
+      "english": "simultaneously",
+      "vevery": "miruharesone",
+      "pronunciation": "mi-ru-ha-re-so-ne",
+      "notes": "simultaneously"
+    },
+    {
+      "english": "single",
+      "vevery": "soneyoruvali",
+      "pronunciation": "so-ne-yo-ru-va-li",
+      "notes": "single"
+    },
+    {
+      "english": "six",
+      "vevery": "havenuma",
+      "pronunciation": "ha-ve-nu-ma",
+      "notes": "the number six"
+    },
+    {
+      "english": "small",
+      "vevery": "sonevari",
+      "pronunciation": "so-ne-va-ri",
+      "notes": "adjective small"
+    },
+    {
+      "english": "stable",
+      "vevery": "sorélumirusone",
+      "pronunciation": "so-reh-lu-mi-ru-so-ne",
+      "notes": "stable"
+    },
+    {
+      "english": "statement",
+      "vevery": "lunesorélu",
+      "pronunciation": "lu-ne-so-reh-lu",
+      "notes": "a statement"
+    },
+    {
+      "english": "still",
+      "vevery": "soréluharesone",
+      "pronunciation": "so-reh-lu-ha-re-so-ne",
+      "notes": "still, yet"
+    },
+    {
+      "english": "subscript",
+      "vevery": "numavané",
+      "pronunciation": "nu-ma-va-neh",
+      "notes": "subscript operator"
+    },
+    {
+      "english": "subtract",
+      "vevery": "numamave",
+      "pronunciation": "nu-ma-ma-ve",
+      "notes": "subtraction operator (-)"
+    },
+    {
+      "english": "system",
+      "vevery": "yoramiruloré",
+      "pronunciation": "yo-ra-mi-ru-lo-reh",
+      "notes": "a system"
+    },
+    {
+      "english": "table",
+      "vevery": "aeveyoruloré",
+      "pronunciation": "ae-ve-yo-ru-lo-reh",
+      "notes": "structured data table"
+    },
+    {
+      "english": "take",
+      "vevery": "sonevoru",
+      "pronunciation": "so-ne-vo-ru",
+      "notes": "to take"
+    },
+    {
+      "english": "tell",
+      "vevery": "lunevoré",
+      "pronunciation": "lu-ne-vo-reh",
+      "notes": "to tell, to inform"
+    },
+    {
+      "english": "ten",
+      "vevery": "sonvanuma",
+      "pronunciation": "son-va-nu-ma",
+      "notes": "the number ten"
+    },
+    {
+      "english": "test",
+      "vevery": "nolemirusevi",
+      "pronunciation": "no-le-mi-ru-se-vi",
+      "notes": "to test"
+    },
+    {
+      "english": "the",
+      "vevery": "yoraéve",
+      "pronunciation": "yo-ra-eh-ve",
+      "notes": "definite article"
+    },
+    {
+      "english": "them",
+      "vevery": "mivanéyoru",
+      "pronunciation": "mi-va-neh-yo-ru",
+      "notes": "them"
+    },
+    {
+      "english": "themselves",
+      "vevery": "mivanésoré",
+      "pronunciation": "mi-va-neh-so-reh",
+      "notes": "themselves"
+    },
+    {
+      "english": "then",
+      "vevery": "haresevivali",
+      "pronunciation": "ha-re-se-vi-va-li",
+      "notes": "then"
+    },
+    {
+      "english": "they",
+      "vevery": "mivané",
+      "pronunciation": "mi-va-neh",
+      "notes": "third person plural pronoun"
+    },
+    {
+      "english": "think",
+      "vevery": "nolesevi",
+      "pronunciation": "no-le-se-vi",
+      "notes": "to think"
+    },
+    {
+      "english": "three",
+      "vevery": "mirnuma",
+      "pronunciation": "mir-nu-ma",
+      "notes": "the number three"
+    },
+    {
+      "english": "time",
+      "vevery": "haremiruvali",
+      "pronunciation": "ha-re-mi-ru-va-li",
+      "notes": "time"
+    },
+    {
+      "english": "to",
+      "vevery": "seviyoru",
+      "pronunciation": "se-vi-yo-ru",
+      "notes": "preposition to"
+    },
+    {
+      "english": "true",
+      "vevery": "beluyoru",
+      "pronunciation": "be-lu-yo-ru",
+      "notes": "adjective true"
+    },
+    {
+      "english": "trust",
+      "vevery": "beluvalisone",
+      "pronunciation": "be-lu-va-li-so-ne",
+      "notes": "trust"
+    },
+    {
+      "english": "truth",
+      "vevery": "beluyorumiru",
+      "pronunciation": "be-lu-yo-ru-mi-ru",
+      "notes": "truth"
+    },
+    {
+      "english": "try",
+      "vevery": "sevimavesone",
+      "pronunciation": "se-vi-ma-ve-so-ne",
+      "notes": "to try"
+    },
+    {
+      "english": "two",
+      "vevery": "vanuma",
+      "pronunciation": "va-nu-ma",
+      "notes": "the number two"
+    },
+    {
+      "english": "uncertainty",
+      "vevery": "mavebelusoreluva",
+      "pronunciation": "ma-ve-be-lu-so-re-lu-va",
+      "notes": "uncertainty"
+    },
+    {
+      "english": "under",
+      "vevery": "valisoreluva",
+      "pronunciation": "va-li-so-re-lu-va",
+      "notes": "under"
+    },
+    {
+      "english": "understand",
+      "vevery": "nolemirue",
+      "pronunciation": "no-le-mi-ru-e",
+      "notes": "to understand"
+    },
+    {
+      "english": "until",
+      "vevery": "haresevimave",
+      "pronunciation": "ha-re-se-vi-ma-ve",
+      "notes": "until"
+    },
+    {
+      "english": "us",
+      "vevery": "misoré",
+      "pronunciation": "mi-so-reh",
+      "notes": "first person plural object pronoun"
+    },
+    {
+      "english": "verify",
+      "vevery": "belunolesevi",
+      "pronunciation": "be-lu-no-le-se-vi",
+      "notes": "to verify"
+    },
+    {
+      "english": "version",
+      "vevery": "aevevalisevi",
+      "pronunciation": "ae-ve-va-li-se-vi",
+      "notes": "a version"
+    },
+    {
+      "english": "violence",
+      "vevery": "mavesevimiru",
+      "pronunciation": "ma-ve-se-vi-mi-ru",
+      "notes": "violence"
+    },
+    {
+      "english": "vision",
+      "vevery": "revasoné",
+      "pronunciation": "re-va-so-neh",
+      "notes": "a vision or image"
+    },
+    {
+      "english": "want",
+      "vevery": "oemivali",
+      "pronunciation": "oe-mi-va-li",
+      "notes": "to want or desire"
+    },
+    {
+      "english": "was",
+      "vevery": "sonelova",
+      "pronunciation": "so-ne-lo-va",
+      "notes": "to be singular past"
+    },
+    {
+      "english": "water",
+      "vevery": "valisevine",
+      "pronunciation": "va-li-se-vi-ne",
+      "notes": "water"
+    },
+    {
+      "english": "way",
+      "vevery": "seviloréva",
+      "pronunciation": "se-vi-lo-reh-va",
+      "notes": "way, manner"
+    },
+    {
+      "english": "we",
+      "vevery": "misoné",
+      "pronunciation": "mi-so-neh",
+      "notes": "first person plural pronoun"
+    },
+    {
+      "english": "week",
+      "vevery": "haremiru",
+      "pronunciation": "ha-re-mi-ru",
+      "notes": "time unit week"
+    },
+    {
+      "english": "well",
+      "vevery": "belusevivali",
+      "pronunciation": "be-lu-se-vi-va-li",
+      "notes": "well, interjection or adverb"
+    },
+    {
+      "english": "were",
+      "vevery": "mirolova",
+      "pronunciation": "mi-ro-lo-va",
+      "notes": "to be plural past"
+    },
+    {
+      "english": "what",
+      "vevery": "yorévali",
+      "pronunciation": "yo-reh-va-li",
+      "notes": "what, interrogative"
+    },
+    {
+      "english": "when",
+      "vevery": "harevalisevi",
+      "pronunciation": "ha-re-va-li-se-vi",
+      "notes": "when"
+    },
+    {
+      "english": "where",
+      "vevery": "seviyoruvali",
+      "pronunciation": "se-vi-yo-ru-va-li",
+      "notes": "where"
+    },
+    {
+      "english": "which",
+      "vevery": "yorévalisone",
+      "pronunciation": "yo-reh-va-li-so-ne",
+      "notes": "which"
+    },
+    {
+      "english": "while",
+      "vevery": "miruharevali",
+      "pronunciation": "mi-ru-ha-re-va-li",
+      "notes": "while, during"
+    },
+    {
+      "english": "will",
+      "vevery": "sonesevi",
+      "pronunciation": "so-ne-se-vi",
+      "notes": "future marker"
+    },
+    {
+      "english": "with",
+      "vevery": "mirusoné",
+      "pronunciation": "mi-ru-so-neh",
+      "notes": "preposition with"
+    },
+    {
+      "english": "within",
+      "vevery": "soreluaevemiru",
+      "pronunciation": "so-re-lu-ae-ve-mi-ru",
+      "notes": "within"
+    },
+    {
+      "english": "without",
+      "vevery": "mavevalisone",
+      "pronunciation": "ma-ve-va-li-so-ne",
+      "notes": "without"
+    },
+    {
+      "english": "word",
+      "vevery": "wora",
+      "pronunciation": "wo-ra",
+      "notes": "a word"
+    },
+    {
+      "english": "world",
+      "vevery": "yoramiru",
+      "pronunciation": "yo-ra-mi-ru",
+      "notes": "the world, all things"
+    },
+    {
+      "english": "year",
+      "vevery": "haresevi",
+      "pronunciation": "ha-re-se-vi",
+      "notes": "time unit year"
+    },
+    {
+      "english": "yesterday",
+      "vevery": "harevalisone",
+      "pronunciation": "ha-re-va-li-so-ne",
+      "notes": "yesterday"
+    },
+    {
+      "english": "you",
+      "vevery": "vané",
+      "pronunciation": "va-neh",
+      "notes": "second person singular pronoun"
+    },
+    {
+      "english": "zero",
+      "vevery": "numane",
+      "pronunciation": "nu-ma-neh",
+      "notes": "the number zero"
+    }
+  ],
+  "redirects": [
+    {
+      "alias": "actually",
+      "english": "true"
+    },
+    {
+      "alias": "assumptions",
+      "english": "assumption"
+    },
+    {
+      "alias": "attempts",
+      "english": "attempt"
+    },
+    {
+      "alias": "awkwardly",
+      "english": "awkward"
+    },
+    {
+      "alias": "awkwardness",
+      "english": "awkward"
+    },
+    {
+      "alias": "became",
+      "english": "become"
+    },
+    {
+      "alias": "becomes",
+      "english": "become"
+    },
+    {
+      "alias": "been",
+      "english": "be"
+    },
+    {
+      "alias": "began",
+      "english": "begin"
+    },
+    {
+      "alias": "beginning",
+      "english": "begin"
+    },
+    {
+      "alias": "begins",
+      "english": "begin"
+    },
+    {
+      "alias": "being",
+      "english": "be"
+    },
+    {
+      "alias": "beliefs",
+      "english": "belief"
+    },
+    {
+      "alias": "believed",
+      "english": "believe"
+    },
+    {
+      "alias": "believes",
+      "english": "believe"
+    },
+    {
+      "alias": "believing",
+      "english": "believe"
+    },
+    {
+      "alias": "by",
+      "english": "over"
+    },
+    {
+      "alias": "called",
+      "english": "call"
+    },
+    {
+      "alias": "calling",
+      "english": "call"
+    },
+    {
+      "alias": "changed",
+      "english": "change"
+    },
+    {
+      "alias": "changing",
+      "english": "change"
+    },
+    {
+      "alias": "clearly",
+      "english": "clear"
+    },
+    {
+      "alias": "collapsed",
+      "english": "collapse"
+    },
+    {
+      "alias": "collapses",
+      "english": "collapse"
+    },
+    {
+      "alias": "conclusions",
+      "english": "conclusion"
+    },
+    {
+      "alias": "conditions",
+      "english": "condition"
+    },
+    {
+      "alias": "considered",
+      "english": "consider"
+    },
+    {
+      "alias": "considering",
+      "english": "consider"
+    },
+    {
+      "alias": "currently",
+      "english": "currently"
+    },
+    {
+      "alias": "days",
+      "english": "day"
+    },
+    {
+      "alias": "decided",
+      "english": "decide"
+    },
+    {
+      "alias": "deciding",
+      "english": "decide"
+    },
+    {
+      "alias": "defined",
+      "english": "define"
+    },
+    {
+      "alias": "defining",
+      "english": "define"
+    },
+    {
+      "alias": "denied",
+      "english": "deny"
+    },
+    {
+      "alias": "denies",
+      "english": "deny"
+    },
+    {
+      "alias": "denying",
+      "english": "deny"
+    },
+    {
+      "alias": "depended",
+      "english": "depend"
+    },
+    {
+      "alias": "dependent",
+      "english": "depend"
+    },
+    {
+      "alias": "depends",
+      "english": "depend"
+    },
+    {
+      "alias": "designed",
+      "english": "design"
+    },
+    {
+      "alias": "designing",
+      "english": "design"
+    },
+    {
+      "alias": "differently",
+      "english": "different"
+    },
+    {
+      "alias": "doesn't",
+      "english": "not"
+    },
+    {
+      "alias": "don't",
+      "english": "not"
+    },
+    {
+      "alias": "doubted",
+      "english": "doubt"
+    },
+    {
+      "alias": "doubting",
+      "english": "doubt"
+    },
+    {
+      "alias": "eliminated",
+      "english": "eliminate"
+    },
+    {
+      "alias": "ever",
+      "english": "now"
+    },
+    {
+      "alias": "every",
+      "english": "every"
+    },
+    {
+      "alias": "existed",
+      "english": "exist"
+    },
+    {
+      "alias": "existing",
+      "english": "exist"
+    },
+    {
+      "alias": "facts",
+      "english": "fact"
+    },
+    {
+      "alias": "feeling",
+      "english": "feel"
+    },
+    {
+      "alias": "felt",
+      "english": "feel"
+    },
+    {
+      "alias": "formalized",
+      "english": "formalize"
+    },
+    {
+      "alias": "gave",
+      "english": "give"
+    },
+    {
+      "alias": "generated",
+      "english": "generate"
+    },
+    {
+      "alias": "giving",
+      "english": "give"
+    },
+    {
+      "alias": "going",
+      "english": "go"
+    },
+    {
+      "alias": "greater",
+      "english": "great"
+    },
+    {
+      "alias": "greatest",
+      "english": "great"
+    },
+    {
+      "alias": "guessing",
+      "english": "guess"
+    },
+    {
+      "alias": "had",
+      "english": "have"
+    },
+    {
+      "alias": "hated",
+      "english": "hate"
+    },
+    {
+      "alias": "hating",
+      "english": "hate"
+    },
+    {
+      "alias": "heard",
+      "english": "hear"
+    },
+    {
+      "alias": "hearing",
+      "english": "hear"
+    },
+    {
+      "alias": "hours",
+      "english": "hour"
+    },
+    {
+      "alias": "i am",
+      "english": "I"
+    },
+    {
+      "alias": "i'm",
+      "english": "I"
+    },
+    {
+      "alias": "influenced",
+      "english": "influence"
+    },
+    {
+      "alias": "influencing",
+      "english": "influence"
+    },
+    {
+      "alias": "interpreted",
+      "english": "interpret"
+    },
+    {
+      "alias": "interpreting",
+      "english": "interpret"
+    },
+    {
+      "alias": "introduced",
+      "english": "introduce"
+    },
+    {
+      "alias": "introduces",
+      "english": "introduce"
+    },
+    {
+      "alias": "invalidated",
+      "english": "invalidate"
+    },
+    {
+      "alias": "invalidates",
+      "english": "invalidate"
+    },
+    {
+      "alias": "just",
+      "english": "good"
+    },
+    {
+      "alias": "knew",
+      "english": "know"
+    },
+    {
+      "alias": "knowing",
+      "english": "know"
+    },
+    {
+      "alias": "known",
+      "english": "know"
+    },
+    {
+      "alias": "knows",
+      "english": "know"
+    },
+    {
+      "alias": "layers",
+      "english": "layer"
+    },
+    {
+      "alias": "lied",
+      "english": "lie"
+    },
+    {
+      "alias": "loved",
+      "english": "love"
+    },
+    {
+      "alias": "loving",
+      "english": "love"
+    },
+    {
+      "alias": "lying",
+      "english": "lie"
+    },
+    {
+      "alias": "made",
+      "english": "make"
+    },
+    {
+      "alias": "making",
+      "english": "make"
+    },
+    {
+      "alias": "maybe",
+      "english": "or"
+    },
+    {
+      "alias": "means",
+      "english": "mean"
+    },
+    {
+      "alias": "meant",
+      "english": "mean"
+    },
+    {
+      "alias": "memories",
+      "english": "memory"
+    },
+    {
+      "alias": "minutes",
+      "english": "minute"
+    },
+    {
+      "alias": "months",
+      "english": "month"
+    },
+    {
+      "alias": "murdered",
+      "english": "murder"
+    },
+    {
+      "alias": "never",
+      "english": "not"
+    },
+    {
+      "alias": "observed",
+      "english": "observe"
+    },
+    {
+      "alias": "observes",
+      "english": "observe"
+    },
+    {
+      "alias": "others",
+      "english": "other"
+    },
+    {
+      "alias": "prepared",
+      "english": "prepare"
+    },
+    {
+      "alias": "preserved",
+      "english": "preserve"
+    },
+    {
+      "alias": "preserving",
+      "english": "preserve"
+    },
+    {
+      "alias": "prevented",
+      "english": "prevent"
+    },
+    {
+      "alias": "prevents",
+      "english": "prevent"
+    },
+    {
+      "alias": "produced",
+      "english": "produce"
+    },
+    {
+      "alias": "produces",
+      "english": "produce"
+    },
+    {
+      "alias": "producing",
+      "english": "produce"
+    },
+    {
+      "alias": "reached",
+      "english": "reach"
+    },
+    {
+      "alias": "reaching",
+      "english": "reach"
+    },
+    {
+      "alias": "reading",
+      "english": "read"
+    },
+    {
+      "alias": "reads",
+      "english": "read"
+    },
+    {
+      "alias": "realized",
+      "english": "realize"
+    },
+    {
+      "alias": "realizing",
+      "english": "realize"
+    },
+    {
+      "alias": "really",
+      "english": "real"
+    },
+    {
+      "alias": "recursive",
+      "english": "recursive"
+    },
+    {
+      "alias": "recursively",
+      "english": "recursive"
+    },
+    {
+      "alias": "remained",
+      "english": "remain"
+    },
+    {
+      "alias": "remaining",
+      "english": "remain"
+    },
+    {
+      "alias": "remains",
+      "english": "remain"
+    },
+    {
+      "alias": "resolutions",
+      "english": "resolution"
+    },
+    {
+      "alias": "rewrites",
+      "english": "rewrite"
+    },
+    {
+      "alias": "rewriting",
+      "english": "rewrite"
+    },
+    {
+      "alias": "rewritten",
+      "english": "rewrite"
+    },
+    {
+      "alias": "said",
+      "english": "say"
+    },
+    {
+      "alias": "saw",
+      "english": "see"
+    },
+    {
+      "alias": "saying",
+      "english": "say"
+    },
+    {
+      "alias": "seconds",
+      "english": "second"
+    },
+    {
+      "alias": "seeing",
+      "english": "see"
+    },
+    {
+      "alias": "sentences",
+      "english": "sentence"
+    },
+    {
+      "alias": "shaped",
+      "english": "shape"
+    },
+    {
+      "alias": "signals",
+      "english": "signal"
+    },
+    {
+      "alias": "solely",
+      "english": "only"
+    },
+    {
+      "alias": "statements",
+      "english": "statement"
+    },
+    {
+      "alias": "sure",
+      "english": "certain"
+    },
+    {
+      "alias": "surely",
+      "english": "certain"
+    },
+    {
+      "alias": "taking",
+      "english": "take"
+    },
+    {
+      "alias": "telling",
+      "english": "tell"
+    },
+    {
+      "alias": "tells",
+      "english": "tell"
+    },
+    {
+      "alias": "tested",
+      "english": "test"
+    },
+    {
+      "alias": "testing",
+      "english": "test"
+    },
+    {
+      "alias": "that",
+      "english": "the"
+    },
+    {
+      "alias": "these",
+      "english": "are"
+    },
+    {
+      "alias": "thinking",
+      "english": "think"
+    },
+    {
+      "alias": "this",
+      "english": "a"
+    },
+    {
+      "alias": "those",
+      "english": "they"
+    },
+    {
+      "alias": "though",
+      "english": "but"
+    },
+    {
+      "alias": "thought",
+      "english": "think"
+    },
+    {
+      "alias": "told",
+      "english": "tell"
+    },
+    {
+      "alias": "took",
+      "english": "take"
+    },
+    {
+      "alias": "tried",
+      "english": "try"
+    },
+    {
+      "alias": "truly",
+      "english": "true"
+    },
+    {
+      "alias": "trying",
+      "english": "try"
+    },
+    {
+      "alias": "understanding",
+      "english": "understand"
+    },
+    {
+      "alias": "understood",
+      "english": "understand"
+    },
+    {
+      "alias": "verified",
+      "english": "verify"
+    },
+    {
+      "alias": "verifying",
+      "english": "verify"
+    },
+    {
+      "alias": "versions",
+      "english": "version"
+    },
+    {
+      "alias": "visions",
+      "english": "vision"
+    },
+    {
+      "alias": "wanted",
+      "english": "want"
+    },
+    {
+      "alias": "wanting",
+      "english": "want"
+    },
+    {
+      "alias": "ways",
+      "english": "way"
+    },
+    {
+      "alias": "weeks",
+      "english": "week"
+    },
+    {
+      "alias": "went",
+      "english": "go"
+    },
+    {
+      "alias": "whether",
+      "english": "if"
+    },
+    {
+      "alias": "won't",
+      "english": "will"
+    },
+    {
+      "alias": "words",
+      "english": "word"
+    },
+    {
+      "alias": "worlds",
+      "english": "world"
+    },
+    {
+      "alias": "would",
+      "english": "will"
+    },
+    {
+      "alias": "years",
+      "english": "year"
+    }
+  ]
+}

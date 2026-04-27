@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vevery — A Living Language</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:         #0a0a0f;
+      --bg2:        #0f0f1a;
+      --bg3:        #13131f;
+      --line:       #1e1e30;
+      --text:       #e8e4d8;
+      --muted:      #7a7468;
+      --accent:     #c9a96e;
+      --accent2:    #8fb4c8;
+      --accent3:    #b8a0c8;
+      --glow:       rgba(201, 169, 110, 0.15);
+      --staff:      rgba(201, 169, 110, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Staff background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 38px,
+          var(--staff) 38px,
+          var(--staff) 39px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Noise grain overlay ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(180deg, rgba(10,10,15,0.98) 0%, transparent 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--muted);
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    /* ── Staff notation decoration ── */
+    .staff-decoration {
+      position: relative;
+      width: min(600px, 90vw);
+      height: 80px;
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    .staff-decoration svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Sample sentence ── */
+    .hero-sample {
+      margin-top: 1rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+
+    .sample-vevery {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .sample-english {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    /* ── CTA buttons ── */
+    .hero-cta {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border: 1px solid;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── Scroll indicator ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 2s forwards;
+    }
+
+    .scroll-hint span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── Sections ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 650px;
+    }
+
+    .section-body p + p { margin-top: 1.2rem; }
+
+    /* ── Philosophy cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Example block ── */
+    .example-block {
+      margin-top: 3rem;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      padding: 2rem 2.5rem;
+    }
+
+    .example-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .example-vevery {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .example-english {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ── Nav grid ── */
+    .page-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 3rem;
+    }
+
+    .page-nav-item {
+      background: var(--bg2);
+      padding: 2rem;
+      text-decoration: none;
+      transition: background 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .page-nav-item:hover { background: var(--bg3); }
+
+    .page-nav-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .page-nav-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .page-nav-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .page-nav-arrow {
+      margin-top: auto;
+      color: var(--accent);
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .page-nav-item:hover .page-nav-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      position: relative;
+      z-index: 1;
+      border: none;
+      border-top: 1px solid var(--line);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    footer p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    footer .footer-vevery {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--accent);
+      display: block;
+      margin-top: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.1); }
+    }
+
+    @keyframes noteFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vevery</a>
+    <ul class="nav-links">
+      <li><a href="phonology.html">Phonology</a></li>
+      <li><a href="grammar.html">Grammar</a></li>
+      <li><a href="dictionary.html">Dictionary</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="hero-eyebrow">A Constructed Language</p>
+    <h1 class="hero-title">Vevery</h1>
+    <p class="hero-subtitle">from the word for <em>notes</em> — soft, flowing, endlessly expressive</p>
+
+    <!-- Staff notation SVG decoration -->
+    <div class="staff-decoration">
+      <svg viewBox="0 0 600 80" xmlns="http://www.w3.org/2000/svg">
+        <!-- Staff lines -->
+        <line x1="40" y1="16" x2="560" y2="16" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+        <line x1="40" y1="28" x2="560" y2="28" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+        <line x1="40" y1="40" x2="560" y2="40" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+        <line x1="40" y1="52" x2="560" y2="52" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+        <line x1="40" y1="64" x2="560" y2="64" stroke="rgba(201,169,110,0.2)" stroke-width="1"/>
+        <!-- Treble clef simplified -->
+        <text x="42" y="62" font-size="56" fill="rgba(201,169,110,0.5)" font-family="serif">𝄞</text>
+        <!-- Notes -->
+        <ellipse cx="150" cy="40" rx="8" ry="6" fill="rgba(201,169,110,0.7)" style="animation: noteFloat 3s ease-in-out infinite;"/>
+        <line x1="158" y1="40" x2="158" y2="10" stroke="rgba(201,169,110,0.7)" stroke-width="1.5"/>
+        <ellipse cx="230" cy="52" rx="8" ry="6" fill="rgba(143,180,200,0.7)" style="animation: noteFloat 3s ease-in-out 0.5s infinite;"/>
+        <line x1="238" y1="52" x2="238" y2="22" stroke="rgba(143,180,200,0.7)" stroke-width="1.5"/>
+        <ellipse cx="310" cy="28" rx="8" ry="6" fill="rgba(184,160,200,0.7)" style="animation: noteFloat 3s ease-in-out 1s infinite;"/>
+        <line x1="318" y1="28" x2="318" y2="0" stroke="rgba(184,160,200,0.7)" stroke-width="1.5"/>
+        <ellipse cx="390" cy="46" rx="8" ry="6" fill="rgba(201,169,110,0.7)" style="animation: noteFloat 3s ease-in-out 1.5s infinite;"/>
+        <line x1="398" y1="46" x2="398" y2="16" stroke="rgba(201,169,110,0.7)" stroke-width="1.5"/>
+        <ellipse cx="470" cy="34" rx="8" ry="6" fill="rgba(143,180,200,0.7)" style="animation: noteFloat 3s ease-in-out 2s infinite;"/>
+        <line x1="478" y1="34" x2="478" y2="4" stroke="rgba(143,180,200,0.7)" stroke-width="1.5"/>
+        <!-- Curved ties between notes -->
+        <path d="M 158 8 Q 194 -4 230 20" stroke="rgba(201,169,110,0.3)" stroke-width="1" fill="none"/>
+        <path d="M 318 -2 Q 354 -14 390 14" stroke="rgba(184,160,200,0.3)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="hero-sample">
+      <p class="sample-vevery">Soné oemisoné vané</p>
+      <p class="sample-english">"I love you"</p>
+    </div>
+
+    <div class="hero-cta">
+      <a href="dictionary.html" class="btn btn-primary">Explore Dictionary</a>
+      <a href="grammar.html" class="btn btn-secondary">Learn Grammar</a>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- What is Vevery -->
+  <section>
+    <p class="section-label">Origins</p>
+    <h2 class="section-title">A language born from music</h2>
+    <div class="section-body">
+      <p>Vevery takes its name from its own word for <em>notes</em> — a self-referential act that defines its character. Designed to be soft, flowing, and musical in its feel, every word in Vevery is built from a set of root concepts that combine like instruments in an ensemble.</p>
+      <p>Where most languages accumulate words through history and accident, Vevery builds them deliberately — compounding roots the way German does, but with a phonology drawn from vowel-rich, gentle sounds. To speak Vevery is to compose.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">𝄞</div>
+        <div class="card-title">Musical Roots</div>
+        <div class="card-text">Born from a notation system. Every concept in Vevery flows from a small set of expressive roots.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <div class="card-title">Compound Logic</div>
+        <div class="card-text">Words are built by combining roots. <em>woraaeve</em> — word-store — means dictionary. Once you know the roots, you can read the language.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">∿</div>
+        <div class="card-title">No Tenses</div>
+        <div class="card-text">Time in Vevery is expressed explicitly — <em>three days before</em>, <em>one day after</em>. The verb stays pure, uncontorted by conjugation.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⟁</div>
+        <div class="card-title">Free Word Order</div>
+        <div class="card-text">Subject-Verb-Object is the default, but the speaker's voice shapes the sentence. Grammar serves expression, not the other way around.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Example sentences -->
+  <section>
+    <p class="section-label">Examples</p>
+    <h2 class="section-title">Vevery in use</h2>
+
+    <div class="example-block">
+      <p class="example-label">A greeting</p>
+      <p class="example-vevery">Soné oemisoné vané</p>
+      <p class="example-english">"I love you"</p>
+    </div>
+
+    <div class="example-block" style="margin-top:1.5rem">
+      <p class="example-label">A number</p>
+      <p class="example-vevery">Mirnuma mirévali zavenuma yovenuma vanuma</p>
+      <p class="example-english">"Three digits: nine, eight, two" — 982</p>
+    </div>
+
+    <div class="example-block" style="margin-top:1.5rem">
+      <p class="example-label">A philosophical statement</p>
+      <p class="example-vevery">Misoné nolesevi misoné nolemirue yoraéve yoramiru</p>
+      <p class="example-english">"We think we understand the world"</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Page navigation -->
+  <section>
+    <p class="section-label">Explore</p>
+    <h2 class="section-title">Where to go next</h2>
+
+    <div class="page-nav">
+      <a href="phonology.html" class="page-nav-item">
+        <span class="page-nav-label">Guide</span>
+        <span class="page-nav-title">Phonology</span>
+        <span class="page-nav-desc">Consonants, vowels, and how to pronounce every sound in Vevery</span>
+        <span class="page-nav-arrow">→</span>
+      </a>
+      <a href="grammar.html" class="page-nav-item">
+        <span class="page-nav-label">Reference</span>
+        <span class="page-nav-title">Grammar</span>
+        <span class="page-nav-desc">Word order, compounds, numbers, time, and negation</span>
+        <span class="page-nav-arrow">→</span>
+      </a>
+      <a href="dictionary.html" class="page-nav-item">
+        <span class="page-nav-label">Reference</span>
+        <span class="page-nav-title">Dictionary</span>
+        <span class="page-nav-desc">Every word in Vevery, searchable and filterable</span>
+        <span class="page-nav-arrow">→</span>
+      </a>
+      <a href="about.html" class="page-nav-item">
+        <span class="page-nav-label">Story</span>
+        <span class="page-nav-title">About</span>
+        <span class="page-nav-desc">The origin and philosophy behind Vevery</span>
+        <span class="page-nav-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Vevery Language Project</p>
+    <span class="footer-vevery">woralore soné — my language</span>
+  </footer>
+
+</body>
+</html>

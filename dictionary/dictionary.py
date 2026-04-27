@@ -764,6 +764,46 @@ def ensure_nltk():
         print("  Lemmatizer fallback will be disabled.\n")
 
 
+def menu_export(conn: sqlite3.Connection):
+    import json
+    print("\n  Export Dictionary")
+    path = prompt("  Output path [dictionary.json]: ", "dictionary.json")
+
+    # Build dictionary entries
+    rows = list_all(conn)
+    entries = [
+        {
+            "english":       row[0],
+            "vevery":        row[1],
+            "pronunciation": row[2] or "",
+            "notes":         row[3] or "",
+        }
+        for row in rows
+    ]
+
+    # Build redirects
+    redirects = [
+        {"alias": alias, "english": english}
+        for alias, english in list_redirects(conn)
+    ]
+
+    export = {
+        "language":  "Vevery",
+        "version":   "1.0",
+        "site":      "lucascw917.github.io/vevery/",
+        "entries":   entries,
+        "redirects": redirects,
+    }
+
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(export, f, ensure_ascii=False, indent=2)
+        print(f"\n  Exported {len(entries)} entries and {len(redirects)} redirects to {path}")
+    except Exception as e:
+        print(f"\n  Error: {e}")
+    input()
+
+
 def main():
     ensure_nltk()
     conn = sqlite3.connect(DB_FILE)
@@ -783,6 +823,7 @@ def main():
         print("  [6] List all words")
         print("  [7] Redirects")
         print("  [8] Inject commands")
+        print("  [9] Export to JSON")
         print("  [q] Quit")
         choice = prompt("\n  > ").lower()
 
@@ -804,6 +845,8 @@ def main():
             menu_redirects(conn)
         elif choice == "8":
             menu_inject(conn)
+        elif choice == "9":
+            menu_export(conn)
         elif choice in ("q", "quit", "exit"):
             print("\n  Goodbye.\n")
             conn.close()
