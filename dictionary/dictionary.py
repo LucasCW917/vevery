@@ -10,6 +10,45 @@ python vevery.py
 
 import sqlite3
 import sys
+import re
+
+# Vevery 2.0 Grammar Constants
+TENSE_MAP = {
+    "am": "ha", "is": "ha", "are": "ha", "doing": "ha",
+    "was": "va", "were": "va", "did": "va",
+    "will": "se", "going": "se",
+}
+
+TONE_MAP = {
+    ".": "—", # Fact/Assertion
+    "!": "ˋ", # Warning/Command
+    "?": "ˊ", # Question/Inquiry
+}
+
+def apply_elision(text: str) -> str:
+    """Smoothes out vowel clusters and simplifies Germanic-style merges."""
+    # Rule: If two vowels meet at a merge point, the first one is 'eaten'
+    # Example: 'numa' + 'ha' -> 'numha'
+    text = re.sub(r'([aeiou])([aeiou])', r'\2', text)
+    
+    # Rule: Simplify hard consonant clusters (e.g., rsn -> nn)
+    text = text.replace("rsn", "nn").replace("np", "mp")
+    return text
+
+def fuse_mega_word(tokens: list, tone: str = "—") -> str:
+    """
+    Takes a list of Vevery words and fuses them into one Germanic Mega-word.
+    Order: [Object][Tense][Verb][Subject]
+    """
+    if not tokens: return ""
+    
+    # In a true logical system, we'd use NLP to tag these. 
+    # For now, we'll fuse them in order of appearance but apply elision.
+    fused = "".join(tokens)
+    fused = apply_elision(fused)
+    
+    return fused + tone
+
 
 DB_FILE = “vevery.db”
 
