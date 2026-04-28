@@ -482,33 +482,62 @@ return lead, word, trail
 ```
 
 def translate_sentence(conn: sqlite3.Connection, sentence: str, direction: str):
-“””
-Translate a sentence word by word, preserving punctuation.
-direction: ‘en’ (English→Vevery) or ‘ve’ (Vevery→English)
-Returns (translated_tokens, missing_tokens).
-“””
-tokens = sentence.strip().split()
-translated = []
-missing = []
+    """
+    Vevery 2.0: Fuses tokens into dense Germanic 'Mega-words'.
+    """
+    if direction == "ve":
+        # De-fusion is complex; for now, we maintain word-by-word for Vevery -> English
+        tokens = sentence.strip().split()
+        translated = []
+        for t in tokens:
+            l, w, r = strip_punctuation(t)
+            res, _ = resolve_vevery_token(conn, w.lower())
+            translated.append(f"{l}{res if res else '['+w+'?]'}{r}")
+        return translated, []
 
-```
-for token in tokens:
-    lead, word, trail = strip_punctuation(token)
-    clean = word.lower()
+    # English -> Vevery (Fusional Logic)
+    raw_tokens = sentence.strip().split()
+    vevery_tokens = []
+    current_tense = ""
+    sentence_tone = "—" # Default to Flat/Fact
 
-    if direction == "en":
+    # 1. Determine Global Tone from ending punctuation
+    if raw_tokens:
+        last_word = raw_tokens[-1]
+        if last_word.endswith("!"): sentence_tone = "ˋ"
+        elif last_word.endswith("?"): sentence_tone = "ˊ"
+
+    for token in raw_tokens:
+        lead, word, trail = strip_punctuation(token)
+        clean = word.lower()
+
+        # 2. Extract Tense (and skip the auxiliary word)
+        if clean in TENSE_MAP:
+            current_tense = TENSE_MAP[clean]
+            continue 
+
+        # 3. Resolve Word
         result, unknown = resolve_english_token(conn, clean)
-    else:
-        result, unknown = resolve_vevery_token(conn, clean)
+        
+        if result:
+            # If we found a tense earlier, attach it as a prefix to the next verb/word
+            if current_tense:
+                result = f"{current_tense}{result}"
+                current_tense = "" # Reset
+            vevery_tokens.append(result)
+        else:
+            vevery_tokens.append(f"[{word}?]")
 
-    if result:
-        translated.append(f"{lead}{result}{trail}")
-    else:
-        translated.append(f"{lead}[{word}?]{trail}")
-        missing.append(word)
+    # 4. Perform Germanic Fusion
+    # We group tokens into "Mega-words" (roughly 1 Vevery word per 3 English)
+    mega_words = []
+    chunk_size = 3
+    for i in range(0, len(vevery_tokens), chunk_size):
+        chunk = vevery_tokens[i:i + chunk_size]
+        fused = fuse_mega_word(chunk, tone=sentence_tone if (i + chunk_size >= len(vevery_tokens)) else "")
+        mega_words.append(fused)
 
-return translated, missing
-```
+    return mega_words, []
 
 def menu_translate_sentence(conn: sqlite3.Connection):
 print(”\n  Translate Sentence”)
