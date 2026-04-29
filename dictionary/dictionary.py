@@ -10,45 +10,7 @@ python vevery.py
 
 import sqlite3
 import sys
-import re
-
-# Vevery 2.0 Grammar Constants
-TENSE_MAP = {
-    "am": "ha", "is": "ha", "are": "ha", "doing": "ha",
-    "was": "va", "were": "va", "did": "va",
-    "will": "se", "going": "se",
-}
-
-TONE_MAP = {
-    ".": "—", # Fact/Assertion
-    "!": "ˋ", # Warning/Command
-    "?": "ˊ", # Question/Inquiry
-}
-
-def apply_elision(text: str) -> str:
-    """Smoothes out vowel clusters and simplifies Germanic-style merges."""
-    # Rule: If two vowels meet at a merge point, the first one is 'eaten'
-    # Example: 'numa' + 'ha' -> 'numha'
-    text = re.sub(r'([aeiou])([aeiou])', r'\2', text)
-    
-    # Rule: Simplify hard consonant clusters (e.g., rsn -> nn)
-    text = text.replace("rsn", "nn").replace("np", "mp")
-    return text
-
-def fuse_mega_word(tokens: list, tone: str = "—") -> str:
-    """
-    Takes a list of Vevery words and fuses them into one Germanic Mega-word.
-    Order: [Object][Tense][Verb][Subject]
-    """
-    if not tokens: return ""
-    
-    # In a true logical system, we'd use NLP to tag these. 
-    # For now, we'll fuse them in order of appearance but apply elision.
-    fused = "".join(tokens)
-    fused = apply_elision(fused)
-    
-    return fused + tone
-
+import shlex
 
 DB_FILE = “vevery.db”
 
@@ -253,7 +215,6 @@ for row in list_concepts(conn):
     if token_l in opposite_words:
         expr = _concept_to_expression(conn, row)
         if expr:
-            # Negate the expression using mavesone (not)
             neg = _get_vevery(conn, "not") or "mavesone"
             return f"{neg} {expr}", name, "opposite"
 
@@ -342,7 +303,6 @@ def place_to_vevery(place: int) -> str:
 digits = str(place)
 if len(digits) == 1:
 return f”je{PLACE_WORDS[place]}”
-# Multi-digit place: use [count] unj [digits] format
 count  = PLACE_WORDS[len(digits)]
 parts  = [DIGIT_WORDS[d] for d in digits]
 return f”je-{count} unj {’ ’.join(parts)}”
@@ -374,7 +334,6 @@ Tries nltk lemmatizer first, then simple suffix stripping as fallback.
 candidates = []
 
 ```
-# nltk lemmatizer — try verb first, then noun, then adjective
 try:
     from nltk.stem import WordNetLemmatizer
     lemmatizer = WordNetLemmatizer()
@@ -385,24 +344,23 @@ try:
 except Exception:
     pass
 
-# Simple suffix stripping fallback
 suffix_rules = [
-    ("ying", "y"),   # trying -> try
-    ("ying", "ie"),  # dying -> die
-    ("ies",  "y"),   # tries -> try
-    ("ied",  "y"),   # tried -> try
-    ("ing",  "e"),   # taking -> take
-    ("ing",  ""),    # running -> run
-    ("ays",  "ay"),  # says -> say
-    ("ed",   "e"),   # liked -> like
-    ("ed",   ""),    # wanted -> want
-    ("ers",  "er"),  # runners -> runner
-    ("es",   "e"),   # takes -> take
-    ("es",   ""),    # watches -> watch
-    ("s",    ""),    # runs -> run
-    ("ly",   ""),    # truly -> true (rough)
-    ("er",   ""),    # bigger -> big (rough)
-    ("est",  ""),    # biggest -> big (rough)
+    ("ying", "y"),
+    ("ying", "ie"),
+    ("ies",  "y"),
+    ("ied",  "y"),
+    ("ing",  "e"),
+    ("ing",  ""),
+    ("ays",  "ay"),
+    ("ed",   "e"),
+    ("ed",   ""),
+    ("ers",  "er"),
+    ("es",   "e"),
+    ("es",   ""),
+    ("s",    ""),
+    ("ly",   ""),
+    ("er",   ""),
+    ("est",  ""),
 ]
 for suffix, replacement in suffix_rules:
     if token.endswith(suffix) and len(token) - len(suffix) >= 2:
@@ -415,24 +373,20 @@ return candidates
 
 def resolve_english_token(conn: sqlite3.Connection, token: str):
 “”“Resolve a single English token to its Vevery word, checking redirects.”””
-# Number check
 if is_number_token(token):
 result = number_to_vevery(token)
 if result:
 return result, None
 
 ```
-# Direct dictionary lookup
 row = lookup_english(conn, token)
 if row:
     return row[1], None
 
-# Redirect lookup
 _, redirected = lookup_redirect(conn, token)
 if redirected:
     return redirected[1], None
 
-# Lemmatizer + suffix fallback
 for candidate in lemmatize_token(token):
     row = lookup_english(conn, candidate)
     if row:
@@ -441,7 +395,6 @@ for candidate in lemmatize_token(token):
     if redirected:
         return redirected[1], None
 
-# Concept graph fallback
 expr, concept_name, method = resolve_via_concept(conn, token)
 if expr:
     return expr, None
@@ -459,7 +412,7 @@ return None, token  # unknown
 def strip_punctuation(token: str):
 “””
 Split a token into (leading_punct, core_word, trailing_punct).
-Apostrophes that are part of a word (c’, ul’, don’t) are preserved.
+Apostrophes that are part of a word are preserved.
 Only sentence-level punctuation (.,!?;:) is stripped from edges.
 “””
 SENTENCE_PUNCT = set(’.,!?;:’)
@@ -468,12 +421,10 @@ trail = “”
 word  = token
 
 ```
-# Strip leading sentence punctuation only
 while word and word[0] in SENTENCE_PUNCT:
     lead += word[0]
     word  = word[1:]
 
-# Strip trailing sentence punctuation only
 while word and word[-1] in SENTENCE_PUNCT:
     trail = word[-1] + trail
     word  = word[:-1]
@@ -482,62 +433,33 @@ return lead, word, trail
 ```
 
 def translate_sentence(conn: sqlite3.Connection, sentence: str, direction: str):
-    """
-    Vevery 2.0: Fuses tokens into dense Germanic 'Mega-words'.
-    """
-    if direction == "ve":
-        # De-fusion is complex; for now, we maintain word-by-word for Vevery -> English
-        tokens = sentence.strip().split()
-        translated = []
-        for t in tokens:
-            l, w, r = strip_punctuation(t)
-            res, _ = resolve_vevery_token(conn, w.lower())
-            translated.append(f"{l}{res if res else '['+w+'?]'}{r}")
-        return translated, []
+“””
+Translate a sentence word by word, preserving punctuation.
+direction: ‘en’ (English→Vevery) or ‘ve’ (Vevery→English)
+Returns (translated_tokens, missing_tokens).
+“””
+tokens = sentence.strip().split()
+translated = []
+missing = []
 
-    # English -> Vevery (Fusional Logic)
-    raw_tokens = sentence.strip().split()
-    vevery_tokens = []
-    current_tense = ""
-    sentence_tone = "—" # Default to Flat/Fact
+```
+for token in tokens:
+    lead, word, trail = strip_punctuation(token)
+    clean = word.lower()
 
-    # 1. Determine Global Tone from ending punctuation
-    if raw_tokens:
-        last_word = raw_tokens[-1]
-        if last_word.endswith("!"): sentence_tone = "ˋ"
-        elif last_word.endswith("?"): sentence_tone = "ˊ"
-
-    for token in raw_tokens:
-        lead, word, trail = strip_punctuation(token)
-        clean = word.lower()
-
-        # 2. Extract Tense (and skip the auxiliary word)
-        if clean in TENSE_MAP:
-            current_tense = TENSE_MAP[clean]
-            continue 
-
-        # 3. Resolve Word
+    if direction == "en":
         result, unknown = resolve_english_token(conn, clean)
-        
-        if result:
-            # If we found a tense earlier, attach it as a prefix to the next verb/word
-            if current_tense:
-                result = f"{current_tense}{result}"
-                current_tense = "" # Reset
-            vevery_tokens.append(result)
-        else:
-            vevery_tokens.append(f"[{word}?]")
+    else:
+        result, unknown = resolve_vevery_token(conn, clean)
 
-    # 4. Perform Germanic Fusion
-    # We group tokens into "Mega-words" (roughly 1 Vevery word per 3 English)
-    mega_words = []
-    chunk_size = 3
-    for i in range(0, len(vevery_tokens), chunk_size):
-        chunk = vevery_tokens[i:i + chunk_size]
-        fused = fuse_mega_word(chunk, tone=sentence_tone if (i + chunk_size >= len(vevery_tokens)) else "")
-        mega_words.append(fused)
+    if result:
+        translated.append(f"{lead}{result}{trail}")
+    else:
+        translated.append(f"{lead}[{word}?]{trail}")
+        missing.append(word)
 
-    return mega_words, []
+return translated, missing
+```
 
 def menu_translate_sentence(conn: sqlite3.Connection):
 print(”\n  Translate Sentence”)
@@ -563,7 +485,6 @@ if not sentence.strip():
 translated, missing = translate_sentence(conn, sentence, direction)
 result = " ".join(translated)
 
-# Capitalize after sentence boundaries (start, and after . ! ?)
 def capitalize_sentences(text: str) -> str:
     result = []
     capitalize_next = True
@@ -599,8 +520,6 @@ input()
 
 # ── Command Injection ─────────────────────────────────────────────────────────
 
-import shlex
-
 def parse_command(line: str, conn: sqlite3.Connection) -> str:
 “”“Parse and execute a single !command. Returns a result string.”””
 line = line.strip()
@@ -609,7 +528,7 @@ return f”  Skipped (not a command): {line}”
 
 ```
 try:
-    parts = shlex.split(line[1:])  # Strip leading ! and tokenize
+    parts = shlex.split(line[1:])
 except ValueError as e:
     return f"  Parse error: {e}"
 
@@ -645,6 +564,23 @@ elif cmd == "add" and len(parts) >= 2 and parts[1].lower() == "redirect":
     ok, err = add_redirect(conn, alias, english)
     return f"  Redirect: \"{alias}\" → \"{english}\"" if ok else f"  Error:    {err}"
 
+# ── !add concept "name" "cluster" "opposites" "category" "expression" ──
+elif cmd == "add" and len(parts) >= 2 and parts[1].lower() == "concept":
+    args = parts[2:]
+    if len(args) < 1:
+        return "  !add concept requires at least a name."
+    name       = args[0]
+    cluster    = args[1] if len(args) > 1 else ""
+    opposites  = args[2] if len(args) > 2 else ""
+    category   = args[3] if len(args) > 3 else ""
+    expression = args[4] if len(args) > 4 else ""
+    existing = get_concept(conn, name)
+    if existing:
+        update_concept(conn, name, cluster, opposites, category, expression)
+        return f'  Updated concept: "{name}"'
+    ok, err = add_concept(conn, name, cluster, opposites, category, expression)
+    return f'  Added concept: "{name}"' if ok else f'  Error: {err}'
+
 # ── !rm entry "english" ──
 elif cmd == "rm" and len(parts) >= 2 and parts[1].lower() == "entry":
     if len(parts) < 3:
@@ -666,6 +602,16 @@ elif cmd == "rm" and len(parts) >= 2 and parts[1].lower() == "redirect":
     delete_redirect(conn, alias)
     return f"  Removed redirect: \"{alias}\""
 
+# ── !rm concept "name" ──
+elif cmd == "rm" and len(parts) >= 2 and parts[1].lower() == "concept":
+    if len(parts) < 3:
+        return "  !rm concept requires a name."
+    name = parts[2]
+    if not get_concept(conn, name):
+        return f'  Not found: "{name}"'
+    delete_concept(conn, name)
+    return f'  Removed concept: "{name}"'
+
 # ── !edit "english" "field" "new value" ──
 elif cmd == "edit":
     if len(parts) < 4:
@@ -679,33 +625,6 @@ elif cmd == "edit":
     conn.commit()
     return f"  Edited:   {english} → {field} = \"{value}\""
 
-# ── !add concept "name" "cluster" "opposites" "category" "expression" ──
-elif cmd == "add" and len(parts) >= 2 and parts[1].lower() == "concept":
-    args = parts[2:]
-    if len(args) < 1:
-        return "  !add concept requires at least a name."
-    name       = args[0]
-    cluster    = args[1] if len(args) > 1 else ""
-    opposites  = args[2] if len(args) > 2 else ""
-    category   = args[3] if len(args) > 3 else ""
-    expression = args[4] if len(args) > 4 else ""
-    existing = get_concept(conn, name)
-    if existing:
-        update_concept(conn, name, cluster, opposites, category, expression)
-        return f'  Updated concept: "{name}"'
-    ok, err = add_concept(conn, name, cluster, opposites, category, expression)
-    return f'  Added concept: "{name}"' if ok else f'  Error: {err}'
-
-# ── !rm concept "name" ──
-elif cmd == "rm" and len(parts) >= 2 and parts[1].lower() == "concept":
-    if len(parts) < 3:
-        return "  !rm concept requires a name."
-    name = parts[2]
-    if not get_concept(conn, name):
-        return f'  Not found: "{name}"'
-    delete_concept(conn, name)
-    return f'  Removed concept: "{name}"'
-
 else:
     return f"  Unknown command: {line}"
 ```
@@ -716,8 +635,10 @@ print(”  Paste semicolon-separated commands, then press Enter twice.”)
 print(”  Syntax:”)
 print(’    !add entry “english” “vevery” “pronunciation” “notes”;’)
 print(’    !add redirect “alias” “english”;’)
+print(’    !add concept “name” “cluster” “opposites” “category” “expression”;’)
 print(’    !rm entry “english”;’)
 print(’    !rm redirect “alias”;’)
+print(’    !rm concept “name”;’)
 print(’    !edit “english” “field” “new value”;’)
 print()
 
@@ -768,7 +689,6 @@ if choice == "1":
         print_entry(row)
         input()
     else:
-        # Check redirects
         target, redirected = lookup_redirect(conn, word)
         if redirected:
             print(f'\n  "{word}" → redirects to "{target}"')
@@ -862,13 +782,11 @@ if not updates:
     input()
     return
 
-# Build dynamic UPDATE query
 set_clauses = ", ".join(f"{k} = ?" for k in updates)
 values = list(updates.values()) + [english]
 try:
     conn.execute(f"UPDATE dictionary SET {set_clauses} WHERE english = ?", values)
     conn.commit()
-    # Re-fetch and show updated entry
     updated = lookup_english(conn, updates.get("english", english))
     print("\n  Updated entry:")
     print_entry(updated)
@@ -900,7 +818,6 @@ print(”\033c”, end=’’)
             print("  Cancelled.")
             input()
             continue
-        # Verify target exists
         if not lookup_english(conn, english):
             print(f'\n  "{english}" not found in dictionary. Add it first.')
             input()
@@ -973,14 +890,13 @@ print(”\033c”, end=’’)
             input()
             continue
         print("  Enter related words as comma-separated list.")
-        cluster   = prompt("  Cluster (e.g. knowledge,belief,reality): ").lower()
-        opposites = prompt("  Opposites (e.g. illusion,lie,doubt): ").lower()
-        category  = prompt("  Category (e.g. abstract,emotion,action): ").lower()
+        cluster    = prompt("  Cluster (e.g. knowledge,belief,reality): ").lower()
+        opposites  = prompt("  Opposites (e.g. illusion,lie,doubt): ").lower()
+        category   = prompt("  Category (e.g. abstract,emotion,action): ").lower()
         expression = prompt("  Vevery expression override (optional): ")
         ok, err = add_concept(conn, name, cluster, opposites, category, expression)
         if ok:
             print(f'\n  Added concept: "{name}"')
-            # Show what expression would be generated
             row = get_concept(conn, name)
             expr = _concept_to_expression(conn, row)
             print(f'  Generated expression: {expr or "(none — add cluster words to dictionary)"}')
@@ -1002,7 +918,7 @@ print(”\033c”, end=’’)
         new_opposites  = prompt(f"  Opposites [{opposites}]: ")
         new_category   = prompt(f"  Category [{category}]: ")
         new_expression = prompt(f"  Expression [{expression}]: ")
-        def _val(new, old): 
+        def _val(new, old):
             if new == "-": return ""
             return new if new else old
         update_concept(conn, name,
@@ -1049,7 +965,6 @@ print(”\033c”, end=’’)
             expr = _concept_to_expression(conn, row)
             print(f'\n  → Vevery expression: {expr or "(none)"}')
         else:
-            # Search clusters and opposites
             expr, concept_name, method = resolve_via_concept(conn, name)
             if expr:
                 print(f'\n  "{name}" found via {method} of concept "{concept_name}"')
@@ -1112,7 +1027,6 @@ print(”\n  Export Dictionary”)
 path = prompt(”  Output path [dictionary.json]: “, “dictionary.json”)
 
 ```
-# Build dictionary entries
 rows = list_all(conn)
 entries = [
     {
@@ -1124,13 +1038,11 @@ entries = [
     for row in rows
 ]
 
-# Build redirects
 redirects = [
     {"alias": alias, "english": english}
     for alias, english in list_redirects(conn)
 ]
 
-# Build concepts
 concept_rows = list_concepts(conn)
 concepts = [
     {
